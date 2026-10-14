@@ -1,6 +1,7 @@
 # Instructions for agent tooling
 
 Read [README.md](README.md) before work in this repository.
+Read [MANUAL.md](MANUAL.md) before agent research work.
 Read the [workspace instructions](../AGENTS.md).
 Follow the boundary and the rules in [README.md](README.md).
 
