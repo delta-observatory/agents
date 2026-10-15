@@ -34,7 +34,11 @@ The `status` values are `match`, `near`, `miss`, `signal`, `eb`, and `quiet`. Th
 Do not use a status as evidence. Do not count statuses as a progress measure.
 `GET /targets` returns at most 5000 rows for each request. Use `offset` for more rows. The `total` field gives the number of matches.
 
-The API has no access control. Any client can use the write endpoints.
+Each request needs your client token: `Authorization: Bearer <token>`. Richard creates the token for your campaign.
+Without a valid token the API gives 401. Without the permission for an operation it gives 403.
+An agent token can hold `read`, `run.submit`, and `record.write`. Acquisition, identity reveal, and administration stay with Richard.
+Each run records the client that created it. You can cancel only the jobs of your own runs.
+Use the API port 30870. Do not use the frontend port 30871.
 The API has no campaign, candidate, assessment, decision, note, or agent-task records.
 The API returns known-object labels in observation responses: `labels.class` and `labels.planets`.
 `GET /targets` also returns label values: `label_class`, `planet_name`, `reference_period_days`, `relative_period_error`, and the label-based `status`.

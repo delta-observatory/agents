@@ -7,7 +7,7 @@ An agent sees the same data and takes the same actions as Richard in the fronten
 ## Current state
 
 The repository contains the agent instructions, the [operating manual](MANUAL.md), and the [campaign template](templates/campaign.md). No agent code exists.
-The API has no access control, campaign budgets, blinding policy, or agent records.
+The API has client tokens and permissions. It has no campaign budgets, blinding policy, or agent records yet.
 [DESIGN.md](../DESIGN.md) defines the target agent control surface. [ROADMAP.md](../ROADMAP.md) stage R8 tracks its delivery.
 
 ## Boundary
