@@ -13,12 +13,31 @@ The API description is at `http://10.0.0.47:30870/api/openapi.json`.
 
 | Operation | Endpoints |
 |---|---|
-| Read | `GET /health`, `/methods`, `/datasets`, `/observations`, `/runs`, `/jobs/{id}`, `/artifacts/{id}`, `/artifacts/{id}/content` |
+| Read | `GET /health`, `/methods`, `/rules`, `/datasets`, `/observations`, `/targets`, `/runs`, `/runs/default`, `/runs/{id}/results`, `/runs/{id}/observations/{observation_id}/fold`, `/jobs/{id}`, `/artifacts/{id}`, `/artifacts/{id}/content` |
+| Check without a write | `POST /runs/estimate` |
 | Write | `POST /datasets/{id}/index`, `POST /runs`, `POST /jobs/{id}/cancel` |
+
+## Same view as the frontend
+
+The frontend shows only values that the API supplies, and it applies only API rules. Use these operations to see what Richard sees:
+
+| Frontend view | API operation |
+|---|---|
+| Target table, sky markers, and marker colours | `GET /targets?run_id=<run>`. Each row has sky position, magnitude, labels, the run's search values, and `status`. |
+| Search field | `GET /targets?q=<query>`. The grammar is `target-query/1`, for example `snr>20 err<0.01 wasp`. |
+| The run shown without a choice | `GET /runs/default` (rule `default-run/1`). |
+| Phase fold and its binned means | `GET /runs/{run}/observations/{observation}/fold`. Add `period=<days>` for a display fold. A fold is a display calculation, not a stored result. |
+| Work estimate and parameter check in the run form | `POST /runs/estimate` with the body of `POST /runs`. It writes nothing. |
+
+`GET /rules` describes each named rule. A rule name has a version, for example `period-agreement/1`.
+The `status` values are `match`, `near`, `miss`, `signal`, `eb`, and `quiet`. They are display bins from unvalidated thresholds.
+Do not use a status as evidence. Do not count statuses as a progress measure.
+`GET /targets` returns at most 5000 rows for each request. Use `offset` for more rows. The `total` field gives the number of matches.
 
 The API has no access control. Any client can use the write endpoints.
 The API has no campaign, candidate, assessment, decision, note, or agent-task records.
 The API returns known-object labels in observation responses: `labels.class` and `labels.planets`.
+`GET /targets` also returns label values: `label_class`, `planet_name`, `reference_period_days`, `relative_period_error`, and the label-based `status`.
 
 ## Data and methods
 
@@ -39,7 +58,7 @@ Treat `tess-bls` threshold detections as unvalidated. The lab report is `~/repos
 2. Write a campaign file from the [campaign template](templates/campaign.md) before you read observation data.
 3. Use the write endpoints only in a campaign that Richard approved.
 4. Stay inside the campaign budgets. Stop at each stop condition.
-5. In a blind campaign, do not use the `class` filter. Do not read `labels` fields before the campaign decisions are fixed.
+5. In a blind campaign, do not use the `class` filter, the `err` and `pref` query fields, or `status`. Do not read label fields before the campaign decisions are fixed.
 6. Check the cohort register before you read observations. Do not read an observation that an evaluation reservation holds.
 7. Record each observation that you read in the campaign's touched list.
 8. Call each signal a "candidate". Do not call a signal a discovery or a new planet.
