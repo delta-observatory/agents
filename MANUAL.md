@@ -39,9 +39,24 @@ Without a valid token the API gives 401. Without the permission for an operation
 An agent token can hold `read`, `run.submit`, and `record.write`. Acquisition, identity reveal, and administration stay with Richard.
 Each run records the client that created it. You can cancel only the jobs of your own runs.
 Use the API port 30870. Do not use the frontend port 30871.
-The API has no campaign, candidate, assessment, decision, note, or agent-task records.
-The API returns known-object labels in observation responses: `labels.class` and `labels.planets`.
-`GET /targets` also returns label values: `label_class`, `planet_name`, `reference_period_days`, `relative_period_error`, and the label-based `status`.
+The API has no candidate, assessment, decision, note, or agent-task records.
+
+## Campaign rules in the API
+
+Your token belongs to one campaign. `GET /me` gives its `campaign_id`. `GET /campaigns/{id}` gives the campaign, its budgets, and its use.
+The API applies these rules to each of your requests:
+
+| Rule | API behaviour |
+|---|---|
+| Approval | Before Richard approves the campaign, observation reads give 403. After the campaign closes, reads and writes give 403. |
+| Blinding | The campaign level is `open`, `labels`, or `labels_identity`. The default is `labels_identity`. Withheld values are null or absent. Each response names them in `withheld`. A filter, query field, text search, or sort on a withheld value gives 422. |
+| Cohort guard | Lists leave out observations that an evaluation reservation protects. `protected_excluded` gives their number. A read gives 403, and a run request gives 422. The API records each refusal. |
+| Budgets | `observations_read`, `jobs`, `compute_seconds`, and `storage_bytes`. A request past a limit gives 403. `POST /runs/estimate` shows the budget state after the run. |
+| Fixed decisions | `POST /campaigns/{id}/fix-decisions` fixes your decisions. After it, new runs give 403. Richard then records the reveal, and blinding ends. |
+
+A 503 response means that the cohort guard cannot read the register. Stop and report it.
+The `labels` level withholds `labels`, `label_class`, `planet_name`, `reference_period_days`, `relative_period_error`, `status`, and `reference_comparison` values.
+The `labels_identity` level also withholds `target_id`, `relative_path`, `sha256`, sky position, and identifying header keywords.
 
 ## Data and methods
 
@@ -60,11 +75,11 @@ Treat `tess-bls` threshold detections as unvalidated. The lab report is `~/repos
 
 1. Use the API only. Do not read PostgreSQL, `raw/`, or the artifact volume directly.
 2. Write a campaign file from the [campaign template](templates/campaign.md) before you read observation data.
-3. Use the write endpoints only in a campaign that Richard approved.
-4. Stay inside the campaign budgets. Stop at each stop condition.
-5. In a blind campaign, do not use the `class` filter, the `err` and `pref` query fields, or `status`. Do not read label fields before the campaign decisions are fixed.
-6. Check the cohort register before you read observations. Do not read an observation that an evaluation reservation holds.
-7. Record each observation that you read in the campaign's touched list.
+3. Use the write endpoints only in a campaign that Richard approved. The API also enforces this rule.
+4. Stay inside the campaign budgets. Stop at each stop condition. A budget refusal from the API is a stop condition.
+5. Do not try to find withheld values from other sources before the reveal. Identity comparison is a worker method, not an agent task.
+6. Do not try again after a cohort guard refusal. Report the refused observation.
+7. Record each observation that you read in the campaign's touched list. `observations_read` in the budget state gives the API count.
 8. Call each signal a "candidate". Do not call a signal a discovery or a new planet.
 9. Keep lab code and lab outputs outside the workspace. A lab result is a proposal, not platform evidence.
 10. Measure progress with calculated measures, for example excess over controls. Do not count your own judgments as progress.

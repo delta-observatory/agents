@@ -22,7 +22,7 @@ Do not change the selection rule, criteria, or budgets after data access. Record
 | Selection rule | Metadata conditions only. No outcome or label conditions. |
 | Sample size | |
 | Cohort register check | Reservations checked and the result |
-| Blinding | Identity information withheld, and the reveal condition |
+| Blinding | `open`, `labels`, or `labels_identity` (default), and the reveal condition |
 
 ## Method
 
@@ -45,13 +45,13 @@ Do not change the selection rule, criteria, or budgets after data access. Record
 
 ## Budgets
 
-| Resource | Limit |
-|---|---:|
-| Observations read | |
-| Jobs submitted | |
-| Compute time | |
-| Storage | |
-| Model spending | |
+| Resource | API budget key | Limit |
+|---|---|---:|
+| Observations read | `observations_read` | |
+| Jobs submitted | `jobs` | |
+| Worker time (s) | `compute_seconds` | |
+| Artifact storage (bytes) | `storage_bytes` | |
+| Model spending | None. The agent records it in the report. | |
 
 ## Stop conditions
 
