@@ -7,7 +7,8 @@ An agent sees the same data and takes the same actions as Richard in the fronten
 ## Current state
 
 The repository contains the agent instructions, the [operating manual](MANUAL.md), and the [campaign template](templates/campaign.md). No agent code exists.
-The API has client tokens and permissions. It has no campaign budgets, blinding policy, or agent records yet.
+The API has client tokens, permissions, and campaigns with budgets, blinding, and the cohort guard.
+It keeps agent records: candidates, assessments, decisions, notes, and agent tasks with leases.
 [DESIGN.md](../DESIGN.md) defines the target agent control surface. [ROADMAP.md](../ROADMAP.md) stage R8 tracks its delivery.
 
 ## Boundary
@@ -41,5 +42,5 @@ The API has client tokens and permissions. It has no campaign budgets, blinding 
 | Content | Dependency |
 |---|---|
 | Lab sandbox template | None |
-| MCP adapter | API parity with the frontend, and API access control |
-| Triage evaluation harness | Candidate, assessment, and decision records in a later contract version |
+| MCP adapter | None. API parity, access control, and the agent records exist. |
+| Triage evaluation harness | Labeled evaluation examples. The candidate, assessment, and decision records exist. |
