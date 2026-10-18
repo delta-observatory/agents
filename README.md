@@ -6,7 +6,9 @@ An agent sees the same data and takes the same actions as Richard in the fronten
 
 ## Current state
 
-The repository contains the agent instructions, the [operating manual](MANUAL.md), and the [campaign template](templates/campaign.md). No agent code exists.
+The repository contains the agent instructions, the [operating manual](MANUAL.md), the [campaign template](templates/campaign.md), the [adapter](adapter/README.md), and the [research importer](importer/README.md).
+The adapter is an MCP server over stdio. It makes one tool for each operation in the API description.
+The importer writes research records from an explicit import manifest through the API, with import keys.
 The API has client tokens, permissions, and campaigns with budgets, blinding, and the cohort guard.
 It keeps agent records: candidates, assessments, decisions, notes, and agent tasks with leases.
 [DESIGN.md](../DESIGN.md) defines the target agent control surface. [ROADMAP.md](../ROADMAP.md) stage R8 tracks its delivery.
@@ -22,6 +24,15 @@ It keeps agent records: candidates, assessments, decisions, notes, and agent tas
 | Agent evaluation harnesses, for example triage scoring against labels | Experiment records, in [experiments/](../experiments/README.md) |
 | Notes about the agent surface | Agent records, in PostgreSQL through the API |
 
+## Tests
+
+```bash
+python3 -m unittest discover -s adapter/tests -t .
+python3 -m unittest discover -s importer/tests -t .
+```
+
+The tests use a stub HTTP server. They do not use the running API.
+
 ## Rules
 
 1. Agent code uses the API only. The API address is `http://10.0.0.47:30870/api`.
@@ -36,11 +47,13 @@ It keeps agent records: candidates, assessments, decisions, notes, and agent tas
 |---|---|
 | [MANUAL.md](MANUAL.md) | Current control surface, data, methods, rules, and report format for agents. |
 | [templates/campaign.md](templates/campaign.md) | Campaign fields to complete and approve before data access. |
+| [adapter/](adapter/README.md) | MCP adapter: `generate.py` makes tools from the API description, and `server.py` serves them over stdio. |
+| [importer/](importer/README.md) | Research importer: `import_records.py` and the `research-import/1` manifest format. |
+| [imports/](imports/) | Import manifests. Each manifest lists its files with SHA-256 and size. |
 
 ## Planned contents
 
 | Content | Dependency |
 |---|---|
 | Lab sandbox template | None |
-| MCP adapter | None. API parity, access control, and the agent records exist. |
 | Triage evaluation harness | Labeled evaluation examples. The candidate, assessment, and decision records exist. |

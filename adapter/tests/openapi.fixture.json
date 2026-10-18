@@ -1,0 +1,4162 @@
+{
+ "components": {
+  "schemas": {
+   "ApproveRequest": {
+    "properties": {
+     "campaign_file_sha256": {
+      "description": "SHA-256 of the campaign file that Richard approved.",
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Campaign File Sha256",
+      "type": "string"
+     }
+    },
+    "required": [
+     "campaign_file_sha256"
+    ],
+    "title": "ApproveRequest",
+    "type": "object"
+   },
+   "BudgetsRequest": {
+    "properties": {
+     "budgets": {
+      "additionalProperties": true,
+      "title": "Budgets",
+      "type": "object"
+     }
+    },
+    "required": [
+     "budgets"
+    ],
+    "title": "BudgetsRequest",
+    "type": "object"
+   },
+   "CampaignRequest": {
+    "properties": {
+     "blinding": {
+      "default": "labels_identity",
+      "description": "open, labels, or labels_identity. The default withholds labels and identity.",
+      "pattern": "^(open|labels|labels_identity)$",
+      "title": "Blinding",
+      "type": "string"
+     },
+     "budgets": {
+      "additionalProperties": true,
+      "description": "Limits by key: observations_read, jobs, compute_seconds, storage_bytes",
+      "title": "Budgets",
+      "type": "object"
+     },
+     "name": {
+      "pattern": "^[a-z][a-z0-9-]{1,62}$",
+      "title": "Name",
+      "type": "string"
+     },
+     "question": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Question",
+      "type": "string"
+     },
+     "title": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "name",
+     "title",
+     "question"
+    ],
+    "title": "CampaignRequest",
+    "type": "object"
+   },
+   "CancelRequest": {
+    "properties": {
+     "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+     }
+    },
+    "required": [
+     "reason"
+    ],
+    "title": "CancelRequest",
+    "type": "object"
+   },
+   "ClaimRequest": {
+    "properties": {
+     "kinds": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Claim only tasks of these kinds.",
+      "title": "Kinds"
+     }
+    },
+    "title": "ClaimRequest",
+    "type": "object"
+   },
+   "ClientRequest": {
+    "properties": {
+     "campaign_id": {
+      "anyOf": [
+       {
+        "format": "uuid",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "The campaign of an agent. Every agent needs one.",
+      "title": "Campaign Id"
+     },
+     "kind": {
+      "pattern": "^(person|agent|service)$",
+      "title": "Kind",
+      "type": "string"
+     },
+     "name": {
+      "pattern": "^[a-z][a-z0-9-]{1,62}$",
+      "title": "Name",
+      "type": "string"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "maxLength": 500,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note"
+     },
+     "permissions": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Permissions",
+      "type": "array"
+     }
+    },
+    "required": [
+     "name",
+     "kind",
+     "permissions"
+    ],
+    "title": "ClientRequest",
+    "type": "object"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "title": "Detail",
+      "type": "array"
+     }
+    },
+    "title": "HTTPValidationError",
+    "type": "object"
+   },
+   "LeaseRequest": {
+    "properties": {
+     "lease_id": {
+      "description": "The lease_id of the claim.",
+      "format": "uuid",
+      "title": "Lease Id",
+      "type": "string"
+     }
+    },
+    "required": [
+     "lease_id"
+    ],
+    "title": "LeaseRequest",
+    "type": "object"
+   },
+   "MethodRef": {
+    "properties": {
+     "id": {
+      "title": "Id",
+      "type": "string"
+     },
+     "version": {
+      "minimum": 1.0,
+      "title": "Version",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "id",
+     "version"
+    ],
+    "title": "MethodRef",
+    "type": "object"
+   },
+   "ReportRequest": {
+    "properties": {
+     "lease_id": {
+      "description": "The lease_id of the claim.",
+      "format": "uuid",
+      "title": "Lease Id",
+      "type": "string"
+     },
+     "report": {
+      "additionalProperties": true,
+      "description": "An agent-task-report/1 document.",
+      "title": "Report",
+      "type": "object"
+     }
+    },
+    "required": [
+     "lease_id",
+     "report"
+    ],
+    "title": "ReportRequest",
+    "type": "object"
+   },
+   "RevealRequest": {
+    "properties": {
+     "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+     }
+    },
+    "required": [
+     "reason"
+    ],
+    "title": "RevealRequest",
+    "type": "object"
+   },
+   "RunRequest": {
+    "properties": {
+     "label": {
+      "anyOf": [
+       {
+        "maxLength": 200,
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Label"
+     },
+     "method": {
+      "$ref": "#/components/schemas/MethodRef"
+     },
+     "observation_ids": {
+      "items": {
+       "format": "uuid",
+       "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "title": "Observation Ids",
+      "type": "array"
+     },
+     "parameters": {
+      "additionalProperties": true,
+      "title": "Parameters",
+      "type": "object"
+     }
+    },
+    "required": [
+     "method",
+     "observation_ids"
+    ],
+    "title": "RunRequest",
+    "type": "object"
+   },
+   "ValidationError": {
+    "properties": {
+     "ctx": {
+      "title": "Context",
+      "type": "object"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "title": "Location",
+      "type": "array"
+     },
+     "msg": {
+      "title": "Message",
+      "type": "string"
+     },
+     "type": {
+      "title": "Error Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError",
+    "type": "object"
+   }
+  }
+ },
+ "info": {
+  "title": "Delta Observatory API",
+  "version": "0.1.0"
+ },
+ "openapi": "3.1.0",
+ "paths": {
+  "/api/access-events": {
+   "get": {
+    "description": "Reads and refused reads of protected observations, newest first.",
+    "operationId": "list_access_events_api_access_events_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "outcome",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^(allowed|refused)$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Outcome"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 200,
+       "maximum": 2000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Access Events"
+   }
+  },
+  "/api/artifacts/{artifact_id}": {
+   "get": {
+    "operationId": "get_artifact_api_artifacts__artifact_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "artifact_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Artifact Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Artifact"
+   }
+  },
+  "/api/artifacts/{artifact_id}/content": {
+   "get": {
+    "description": "The stored artifact bytes. When blinding withholds values, a JSON summary artifact comes back redacted\nand uncompressed.",
+    "operationId": "get_artifact_content_api_artifacts__artifact_id__content_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "artifact_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Artifact Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Artifact Content"
+   }
+  },
+  "/api/assessments": {
+   "get": {
+    "description": "Assessments, newest first. A campaign that withholds labels hides identity assessments from its agents.",
+    "operationId": "list_assessments_api_assessments_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "candidate_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Candidate Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "axis",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^(evidence|identity)$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Axis"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Assessments"
+   },
+   "post": {
+    "description": "Write an assessment/1 record. The newest assessment on an axis gives the current status of the candidate.\nAn agent writes evidence assessments with basis model_judgment only. Identity assessments come from worker\nmethods or people.",
+    "operationId": "create_assessment_api_assessments_post",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "additionalProperties": true,
+        "description": "The record document. contracts/records/ defines it.",
+        "title": "Document",
+        "type": "object"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Assessment"
+   }
+  },
+  "/api/assessments/{assessment_id}": {
+   "get": {
+    "operationId": "get_assessment_api_assessments__assessment_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "assessment_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Assessment Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Assessment"
+   }
+  },
+  "/api/campaigns": {
+   "get": {
+    "description": "Campaigns, newest first. An agent sees only its own campaign.",
+    "operationId": "list_campaigns_api_campaigns_get",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Campaigns"
+   },
+   "post": {
+    "description": "Create a campaign. Agents of the campaign read observation data only after the approval.",
+    "operationId": "create_campaign_api_campaigns_post",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CampaignRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Campaign"
+   }
+  },
+  "/api/campaigns/{campaign_id}": {
+   "get": {
+    "operationId": "get_campaign_api_campaigns__campaign_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "campaign_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Campaign Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Campaign"
+   }
+  },
+  "/api/campaigns/{campaign_id}/approve": {
+   "post": {
+    "description": "Record the approval of the campaign file. The approval starts the campaign.",
+    "operationId": "approve_campaign_api_campaigns__campaign_id__approve_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "campaign_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Campaign Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ApproveRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Approve Campaign"
+   }
+  },
+  "/api/campaigns/{campaign_id}/budgets": {
+   "post": {
+    "description": "Replace the budgets of a campaign that is not closed.",
+    "operationId": "set_campaign_budgets_api_campaigns__campaign_id__budgets_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "campaign_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Campaign Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BudgetsRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Set Campaign Budgets"
+   }
+  },
+  "/api/campaigns/{campaign_id}/close": {
+   "post": {
+    "description": "Close the campaign. Its agents then read no observation data and write nothing.",
+    "operationId": "close_campaign_api_campaigns__campaign_id__close_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "campaign_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Campaign Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Close Campaign"
+   }
+  },
+  "/api/campaigns/{campaign_id}/fix-decisions": {
+   "post": {
+    "description": "Fix the decisions of the campaign. After this, its agents submit no new runs, and the reveal can follow.",
+    "operationId": "fix_campaign_decisions_api_campaigns__campaign_id__fix_decisions_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "campaign_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Campaign Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Fix Campaign Decisions"
+   }
+  },
+  "/api/campaigns/{campaign_id}/reveal": {
+   "post": {
+    "description": "Record the reveal. Blinding then ends for the agents of the campaign.",
+    "operationId": "reveal_campaign_api_campaigns__campaign_id__reveal_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "campaign_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Campaign Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RevealRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Reveal Campaign"
+   }
+  },
+  "/api/candidates": {
+   "get": {
+    "description": "Candidates with their current statuses (rule candidate-status/1), newest first.\nAn agent sees the candidates of its campaign that refer to no withheld value and no protected observation.",
+    "operationId": "list_candidates_api_candidates_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "kind",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^(transit_signal|moving_object)$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Kind"
+      }
+     },
+     {
+      "in": "query",
+      "name": "tier",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^(platform|lab)$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Tier"
+      }
+     },
+     {
+      "in": "query",
+      "name": "evidence_status",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^(unreviewed|supported|ambiguous|rejected)$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Evidence Status"
+      }
+     },
+     {
+      "in": "query",
+      "name": "identity_status",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^(unchecked|matched|unmatched|ambiguous)$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Identity Status"
+      }
+     },
+     {
+      "in": "query",
+      "name": "observation_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Observation Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Candidates"
+   },
+   "post": {
+    "description": "Write a candidate/1 record. Its evidence status starts as unreviewed and its identity status as unchecked.",
+    "operationId": "create_candidate_api_candidates_post",
+    "parameters": [
+     {
+      "description": "The campaign. An agent writes in its own campaign.",
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "The campaign. An agent writes in its own campaign.",
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "additionalProperties": true,
+        "description": "The record document. contracts/records/ defines it.",
+        "title": "Document",
+        "type": "object"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Candidate"
+   }
+  },
+  "/api/candidates/{candidate_id}": {
+   "get": {
+    "description": "One candidate with its observations, its resolved evidence, its assessments, decisions, and notes.\nThe measurement values and observations count as observation reads for an agent's budget.",
+    "operationId": "get_candidate_api_candidates__candidate_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "candidate_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Candidate Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Candidate"
+   }
+  },
+  "/api/clients": {
+   "get": {
+    "operationId": "list_clients_api_clients_get",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Clients"
+   },
+   "post": {
+    "description": "Create a client. The response holds the token once. The API keeps only its SHA-256.",
+    "operationId": "create_client_api_clients_post",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ClientRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Client"
+   }
+  },
+  "/api/clients/{client_id}/disable": {
+   "post": {
+    "operationId": "disable_client_api_clients__client_id__disable_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "client_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Client Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Disable Client"
+   }
+  },
+  "/api/datasets": {
+   "get": {
+    "operationId": "list_datasets_api_datasets_get",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Datasets"
+   }
+  },
+  "/api/datasets/{dataset_id}/index": {
+   "post": {
+    "operationId": "index_dataset_api_datasets__dataset_id__index_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "dataset_id",
+      "required": true,
+      "schema": {
+       "title": "Dataset Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "202": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Index Dataset"
+   }
+  },
+  "/api/decisions": {
+   "get": {
+    "description": "Decisions, newest first.",
+    "operationId": "list_decisions_api_decisions_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "candidate_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Candidate Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "action",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^[a-z_]+$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Action"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Decisions"
+   },
+   "post": {
+    "description": "Write a decision/1 record: one advisory judgment about a candidate. A decision sets no status.\nAn agent writes model judgments only. The record keeps the values that blinding withheld from the writer.",
+    "operationId": "create_decision_api_decisions_post",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "additionalProperties": true,
+        "description": "The record document. contracts/records/ defines it.",
+        "title": "Document",
+        "type": "object"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Decision"
+   }
+  },
+  "/api/decisions/{decision_id}": {
+   "get": {
+    "operationId": "get_decision_api_decisions__decision_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "decision_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Decision Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Decision"
+   }
+  },
+  "/api/health": {
+   "get": {
+    "operationId": "health_api_health_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Health"
+   }
+  },
+  "/api/jobs/{job_id}": {
+   "get": {
+    "operationId": "get_job_api_jobs__job_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "job_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Job Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Job"
+   }
+  },
+  "/api/jobs/{job_id}/cancel": {
+   "post": {
+    "description": "Cancel a queued job. A client cancels only the jobs of its own runs, unless it has \"admin\".",
+    "operationId": "cancel_job_api_jobs__job_id__cancel_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "job_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Job Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Cancel Job"
+   }
+  },
+  "/api/me": {
+   "get": {
+    "description": "The client of the token, with its permissions.",
+    "operationId": "me_api_me_get",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Me"
+   }
+  },
+  "/api/methods": {
+   "get": {
+    "operationId": "list_methods_api_methods_get",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Methods"
+   }
+  },
+  "/api/methods/{method_id}/{version}": {
+   "get": {
+    "operationId": "get_method_api_methods__method_id___version__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "method_id",
+      "required": true,
+      "schema": {
+       "title": "Method Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "version",
+      "required": true,
+      "schema": {
+       "title": "Version",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Method"
+   }
+  },
+  "/api/notes": {
+   "get": {
+    "description": "Notes, newest first. subject_kind and subject_id select the notes about one record.",
+    "operationId": "list_notes_api_notes_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "subject_kind",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^(campaign|observation|run|job|measurement|artifact|candidate|assessment|decision|note|agent_task)$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Subject Kind"
+      }
+     },
+     {
+      "in": "query",
+      "name": "subject_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "maxLength": 64,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Subject Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Notes"
+   },
+   "post": {
+    "description": "Write a note/1 record about one or more records. The note takes the campaign of its subjects.\nAn agent writes notes in its own campaign until the campaign closes.",
+    "operationId": "create_note_api_notes_post",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "additionalProperties": true,
+        "description": "The record document. contracts/records/ defines it.",
+        "title": "Document",
+        "type": "object"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Note"
+   }
+  },
+  "/api/notes/{note_id}": {
+   "get": {
+    "operationId": "get_note_api_notes__note_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "note_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Note Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Note"
+   }
+  },
+  "/api/observations": {
+   "get": {
+    "operationId": "list_observations_api_observations_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "dataset_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Dataset Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "target_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Target Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "state",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "State"
+      }
+     },
+     {
+      "description": "Label class: planet_host, no_known_planet, or eclipsing_binary.",
+      "in": "query",
+      "name": "class",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Label class: planet_host, no_known_planet, or eclipsing_binary.",
+       "title": "Class"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Observations"
+   }
+  },
+  "/api/observations/{observation_id}": {
+   "get": {
+    "operationId": "get_observation_api_observations__observation_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "observation_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Observation Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Observation"
+   }
+  },
+  "/api/rules": {
+   "get": {
+    "description": "Named rules that clients apply to stored values: status, default run, query grammar, fold, estimate,\nand candidate status.",
+    "operationId": "list_rules_api_rules_get",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Rules"
+   }
+  },
+  "/api/runs": {
+   "get": {
+    "operationId": "list_runs_api_runs_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 50,
+       "maximum": 500,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Runs"
+   },
+   "post": {
+    "operationId": "create_run_api_runs_post",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RunRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Run"
+   }
+  },
+  "/api/runs/default": {
+   "get": {
+    "description": "The run that a client shows when it names none (rule default-run/1).",
+    "operationId": "default_run_api_runs_default_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "dataset_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Dataset Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "method_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Method Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "method_version",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Method Version"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Default Run"
+   }
+  },
+  "/api/runs/estimate": {
+   "post": {
+    "description": "Check a run request and estimate its work without a write. A failed check gives the same 422 as POST /runs.\nFor an agent, the response also gives the campaign budgets after the run.",
+    "operationId": "estimate_run_api_runs_estimate_post",
+    "parameters": [
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RunRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Estimate Run"
+   }
+  },
+  "/api/runs/{run_id}": {
+   "get": {
+    "operationId": "get_run_api_runs__run_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "run_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Run Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Run"
+   }
+  },
+  "/api/runs/{run_id}/observations/{observation_id}/fold": {
+   "get": {
+    "description": "Fold the stored flattened flux and bin it. A display calculation, not a stored result.",
+    "operationId": "get_fold_api_runs__run_id__observations__observation_id__fold_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "run_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Run Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "path",
+      "name": "observation_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Observation Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Fold period in days. Default: the stored BLS period.",
+      "in": "query",
+      "name": "period",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "exclusiveMinimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Fold period in days. Default: the stored BLS period.",
+       "title": "Period"
+      }
+     },
+     {
+      "description": "Event time, BTJD (TDB). Default: the stored BLS transit time.",
+      "in": "query",
+      "name": "t0",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Event time, BTJD (TDB). Default: the stored BLS transit time.",
+       "title": "T0"
+      }
+     },
+     {
+      "description": "Half width of the window. Default: rule fold-window/1.",
+      "in": "query",
+      "name": "window_hours",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "exclusiveMinimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Half width of the window. Default: rule fold-window/1.",
+       "title": "Window Hours"
+      }
+     },
+     {
+      "description": "Bin width. Default: rule fold-window/1.",
+      "in": "query",
+      "name": "bin_hours",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "exclusiveMinimum": 0,
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bin width. Default: rule fold-window/1.",
+       "title": "Bin Hours"
+      }
+     },
+     {
+      "description": "Use only times at or after this BTJD.",
+      "in": "query",
+      "name": "t_min",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Use only times at or after this BTJD.",
+       "title": "T Min"
+      }
+     },
+     {
+      "description": "Use only times at or before this BTJD.",
+      "in": "query",
+      "name": "t_max",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Use only times at or before this BTJD.",
+       "title": "T Max"
+      }
+     },
+     {
+      "description": "Include the folded points.",
+      "in": "query",
+      "name": "points",
+      "required": false,
+      "schema": {
+       "default": false,
+       "description": "Include the folded points.",
+       "title": "Points",
+       "type": "boolean"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Fold"
+   }
+  },
+  "/api/runs/{run_id}/results": {
+   "get": {
+    "description": "Results of the run's jobs. For an agent, protected observations are left out, and each other observation\ncounts toward the observation budget.",
+    "operationId": "get_run_results_api_runs__run_id__results_get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "run_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Run Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Only the job of this observation.",
+      "in": "query",
+      "name": "observation_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Only the job of this observation.",
+       "title": "Observation Id"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Run Results"
+   }
+  },
+  "/api/targets": {
+   "get": {
+    "description": "Ready observations with sky position, magnitude, labels, the run's search values, and a display status.",
+    "operationId": "list_targets_api_targets_get",
+    "parameters": [
+     {
+      "description": "Run that supplies the measurements. Without it, measurement fields are null.",
+      "in": "query",
+      "name": "run_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Run that supplies the measurements. Without it, measurement fields are null.",
+       "title": "Run Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "dataset_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Dataset Id"
+      }
+     },
+     {
+      "description": "Query in grammar target-query/1. GET /api/rules describes it.",
+      "in": "query",
+      "name": "q",
+      "required": false,
+      "schema": {
+       "default": "",
+       "description": "Query in grammar target-query/1. GET /api/rules describes it.",
+       "title": "Q",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Label class: planet_host, no_known_planet, or eclipsing_binary.",
+      "in": "query",
+      "name": "class",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Label class: planet_host, no_known_planet, or eclipsing_binary.",
+       "title": "Class"
+      }
+     },
+     {
+      "description": "Only the observations that are inputs of the run.",
+      "in": "query",
+      "name": "in_run",
+      "required": false,
+      "schema": {
+       "default": false,
+       "description": "Only the observations that are inputs of the run.",
+       "title": "In Run",
+       "type": "boolean"
+      }
+     },
+     {
+      "description": "A target attribute, with \"-\" for descending order. Null values sort last.",
+      "in": "query",
+      "name": "sort",
+      "required": false,
+      "schema": {
+       "default": "-depth_snr",
+       "description": "A target attribute, with \"-\" for descending order. Null values sort last.",
+       "title": "Sort",
+       "type": "string"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 1000,
+       "maximum": 5000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Targets"
+   }
+  },
+  "/api/tasks": {
+   "get": {
+    "description": "Agent tasks, in claim order: highest priority first, then oldest.",
+    "operationId": "list_tasks_api_tasks_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "in": "query",
+      "name": "state",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^(queued|claimed|complete|failed|cancelled)$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "State"
+      }
+     },
+     {
+      "in": "query",
+      "name": "kind",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "pattern": "^[a-z][a-z0-9_]{0,62}$",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Kind"
+      }
+     },
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 100,
+       "maximum": 1000,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+       "default": 0,
+       "minimum": 0,
+       "title": "Offset",
+       "type": "integer"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "List Tasks"
+   },
+   "post": {
+    "description": "Write an agent-task/1 record in the queued state. Its inputs must be visible to the agents of the campaign.",
+    "operationId": "create_task_api_tasks_post",
+    "parameters": [
+     {
+      "description": "The campaign. An agent writes in its own campaign.",
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "The campaign. An agent writes in its own campaign.",
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "additionalProperties": true,
+        "description": "The record document. contracts/records/ defines it.",
+        "title": "Document",
+        "type": "object"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "201": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Create Task"
+   }
+  },
+  "/api/tasks/claim": {
+   "post": {
+    "description": "Claim the next task of the campaign for one lease: a queued task, or a claimed task with an expired lease and\nattempts left. The highest priority goes first, then the oldest task. Parallel claims never return the same task.\nA task whose lease expired on its last attempt becomes failed. \"task\" is null when no task is available.",
+    "operationId": "claim_task_api_tasks_claim_post",
+    "parameters": [
+     {
+      "description": "The campaign. An agent claims in its own campaign.",
+      "in": "query",
+      "name": "campaign_id",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "format": "uuid",
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "The campaign. An agent claims in its own campaign.",
+       "title": "Campaign Id"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ClaimRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Claim Task"
+   }
+  },
+  "/api/tasks/{task_id}": {
+   "get": {
+    "operationId": "get_task_api_tasks__task_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "task_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Task Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Get Task"
+   }
+  },
+  "/api/tasks/{task_id}/cancel": {
+   "post": {
+    "description": "Cancel a queued or claimed task. A client cancels only the tasks that it wrote, unless it has \"admin\".",
+    "operationId": "cancel_task_api_tasks__task_id__cancel_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "task_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Task Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CancelRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Cancel Task"
+   }
+  },
+  "/api/tasks/{task_id}/heartbeat": {
+   "post": {
+    "description": "Extend the lease by lease_seconds from now. Only the holder of the current lease can extend it.\nA lease that expired, but that no other claim took, can still be extended.",
+    "operationId": "heartbeat_task_api_tasks__task_id__heartbeat_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "task_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Task Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LeaseRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Heartbeat Task"
+   }
+  },
+  "/api/tasks/{task_id}/release": {
+   "post": {
+    "description": "Return the claimed task to the queue without a used attempt.",
+    "operationId": "release_task_api_tasks__task_id__release_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "task_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Task Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/LeaseRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Release Task"
+   }
+  },
+  "/api/tasks/{task_id}/report": {
+   "post": {
+    "description": "End the claimed task with an agent-task-report/1 document: complete or failed. Only the holder of the\ncurrent lease can end it.",
+    "operationId": "report_task_api_tasks__task_id__report_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "task_id",
+      "required": true,
+      "schema": {
+       "format": "uuid",
+       "title": "Task Id",
+       "type": "string"
+      }
+     },
+     {
+      "description": "Bearer token of the client.",
+      "in": "header",
+      "name": "authorization",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "Bearer token of the client.",
+       "title": "Authorization"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ReportRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Report Task"
+   }
+  }
+ }
+}

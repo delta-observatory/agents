@@ -1,0 +1,169 @@
+{
+  "format": "research-import/1",
+  "description": "The closed T01 record (experiments/tess-known-planet-recovery) for its two registered development hosts. One lab candidate for each host, with the T01 result files as external references, and one note that quotes the T01 outcome and limits. The manifest states no assessment and no decision.",
+  "root": "../..",
+  "items": [
+    {
+      "import_key": "experiment:tess-known-planet-recovery/tic-100100827",
+      "observations": [
+        {
+          "target_id": "TIC:100100827",
+          "sha256": "9e83d10406a7ee0274409cd19f39857abbadfbe907e0a1f033d18c00136b0c7b",
+          "file_name": "tess2018234235059-s0002-0000000100100827-0121-s_lc.fits"
+        }
+      ],
+      "external_files": [
+        {
+          "path": "experiments/tess-known-planet-recovery/results/100100827/search.json",
+          "sha256": "31e311fba929ac02fd49704efb9d54b988e0788671e0c04826f5ebe390ef28d0",
+          "bytes": 4741,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/100100827/search.json",
+          "description": "T01 saved BLS search result for TIC 100100827, written before the reference comparison."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/100100827/comparison.json",
+          "sha256": "b4a3bdf1028e2ac6f343ddcde59f66b15068d829bbf98d667615aaf7548e5a6c",
+          "bytes": 2114,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/100100827/comparison.json",
+          "description": "T01 comparison of the saved search result with the WASP-18 b reference."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/100100827/input-checks.json",
+          "sha256": "0c7fc404e3ce68ac8b1574fc6f84bbeb6279d12b023db3e38a9d9cb4102f753a",
+          "bytes": 1197,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/100100827/input-checks.json",
+          "description": "T01 input checks for TIC 100100827."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/100100827/diagnostics.png",
+          "sha256": "27f4d87a2f59eae93dd824f320ee040fd0e8b5e95ce5ef32a047e49a945231b7",
+          "bytes": 434477,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/100100827/diagnostics.png",
+          "description": "T01 diagnostic figure for TIC 100100827: observations, search, and folded transit."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/README.md",
+          "sha256": "2d9eef3ee14bbeb888c9e08c4a64322429b35134a08ee9b46c9baa1f0901777c",
+          "bytes": 10057,
+          "uri": "workspace:experiments/tess-known-planet-recovery/README.md",
+          "description": "T01 record: inputs, method, results, limits, and decision."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/summary.json",
+          "sha256": "4976561e7fd09eac660eedf894b1f78eb87188431d8e55c7531fe2069336f3ad",
+          "bytes": 4626,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/summary.json",
+          "description": "T01 execution summary with environment and execution hashes."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/validation.json",
+          "sha256": "a94eafa6307f3f02e4d477ef883ee6e7ef562dd56cc7362d92c53291fc01443e",
+          "bytes": 2443,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/validation.json",
+          "description": "T01 independent phase, depth, and event-count checks and the repeat comparison."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/preparation-diagnostic/preparation.json",
+          "sha256": "99e30557c042ce6825dbe96103cd11a11e72f3e6089d8996a6954fe6b186349b",
+          "bytes": 1221,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/preparation-diagnostic/preparation.json",
+          "description": "T01 post-result diagnostic of depth change by preparation."
+        }
+      ],
+      "candidate": {
+        "contract": "candidate/1",
+        "kind": "transit_signal",
+        "tier": "lab",
+        "label": "T01-A",
+        "summary": "Transit signal of the known planet WASP-18 b in the sector-2 light curve of TIC 100100827. The closed T01 guided known-planet recovery experiment recovered its period and phase. Imported from the experiment record as an external proposal. Development data. Not platform evidence."
+      },
+      "notes": [
+        {
+          "import_key": "experiment:tess-known-planet-recovery/tic-100100827/record-quote",
+          "body": "Quoted from the closed T01 record, experiments/tess-known-planet-recovery/README.md. The import adds no judgment.\n\nOutcome:\n\"Closed with successful guided period and phase recovery for both selected planets.\"\n\"All conditions passed for both targets.\"\n\nResults table row (planet, reference period in days, recovered period in days, relative period error, phase error, sampled events), and the depth sentences:\n\"| WASP-18 b | 0.941452520 | 0.941384909 | 0.00718% | 0.960 minutes | 28 |\"\n\"The fitted box depths are 0.9474% and 0.2189%, respectively.\"\n\"Their formal signal-to-noise ratios are 652.4 and 46.0.\"\n\nLimits:\n\"This is a guided recovery test, not a blind search or independent population evaluation.\"\n\"This result supports the brightness-series workflow. It does not validate that preparation for depth measurements or discovery searches.\"\n\"These ratios assume the supplied independent errors. They do not measure false-alarm probability or discovery confidence.\"\n\"The phase errors describe a coarse box search, not precision transit timing.\"\n\"No physical transit model, pixel-centroid check, blend assessment, or negative sample enters this experiment.\"\n\"| WASP-18 b | 0.99897% | 0.94737% | 0.9483 |\"\n\"WASP-18 also has a substantial odd/even depth difference relative to the reported formal errors.\"\n\"The archive marks the selected WASP-18 reference with a transit-timing-variation flag.\""
+        }
+      ]
+    },
+    {
+      "import_key": "experiment:tess-known-planet-recovery/tic-25155310",
+      "observations": [
+        {
+          "target_id": "TIC:25155310",
+          "sha256": "9bb4e0941db970d4890658ebf0e86b3592d642643c10350723a807ae79a85fbb",
+          "file_name": "tess2018234235059-s0002-0000000025155310-0121-s_lc.fits"
+        }
+      ],
+      "external_files": [
+        {
+          "path": "experiments/tess-known-planet-recovery/results/25155310/search.json",
+          "sha256": "2a759b69ac6f6ef6a94e83d6b30473c30ba1763837636b06fadb123a51f8f363",
+          "bytes": 3484,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/25155310/search.json",
+          "description": "T01 saved BLS search result for TIC 25155310, written before the reference comparison."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/25155310/comparison.json",
+          "sha256": "f0eba75e53bd57659a6856ce3f40bfae655b1983d1187666ce52fa242c9431f2",
+          "bytes": 2056,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/25155310/comparison.json",
+          "description": "T01 comparison of the saved search result with the WASP-126 b reference."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/25155310/input-checks.json",
+          "sha256": "a8068672cf969a75ef50ace721ad06d687a6da1f08f9e80980381fc9820b453d",
+          "bytes": 1189,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/25155310/input-checks.json",
+          "description": "T01 input checks for TIC 25155310."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/25155310/diagnostics.png",
+          "sha256": "cd842855b516feaeac57e4cd1ed7c3dbc4bc55483ccf2ca8db5adc567417a876",
+          "bytes": 471462,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/25155310/diagnostics.png",
+          "description": "T01 diagnostic figure for TIC 25155310: observations, search, and folded transit."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/README.md",
+          "sha256": "2d9eef3ee14bbeb888c9e08c4a64322429b35134a08ee9b46c9baa1f0901777c",
+          "bytes": 10057,
+          "uri": "workspace:experiments/tess-known-planet-recovery/README.md",
+          "description": "T01 record: inputs, method, results, limits, and decision."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/summary.json",
+          "sha256": "4976561e7fd09eac660eedf894b1f78eb87188431d8e55c7531fe2069336f3ad",
+          "bytes": 4626,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/summary.json",
+          "description": "T01 execution summary with environment and execution hashes."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/validation.json",
+          "sha256": "a94eafa6307f3f02e4d477ef883ee6e7ef562dd56cc7362d92c53291fc01443e",
+          "bytes": 2443,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/validation.json",
+          "description": "T01 independent phase, depth, and event-count checks and the repeat comparison."
+        },
+        {
+          "path": "experiments/tess-known-planet-recovery/results/preparation-diagnostic/preparation.json",
+          "sha256": "99e30557c042ce6825dbe96103cd11a11e72f3e6089d8996a6954fe6b186349b",
+          "bytes": 1221,
+          "uri": "workspace:experiments/tess-known-planet-recovery/results/preparation-diagnostic/preparation.json",
+          "description": "T01 post-result diagnostic of depth change by preparation."
+        }
+      ],
+      "candidate": {
+        "contract": "candidate/1",
+        "kind": "transit_signal",
+        "tier": "lab",
+        "label": "T01-B",
+        "summary": "Transit signal of the known planet WASP-126 b in the sector-2 light curve of TIC 25155310. The closed T01 guided known-planet recovery experiment recovered its period and phase. Imported from the experiment record as an external proposal. Development data. Not platform evidence."
+      },
+      "notes": [
+        {
+          "import_key": "experiment:tess-known-planet-recovery/tic-25155310/record-quote",
+          "body": "Quoted from the closed T01 record, experiments/tess-known-planet-recovery/README.md. The import adds no judgment.\n\nOutcome:\n\"Closed with successful guided period and phase recovery for both selected planets.\"\n\"All conditions passed for both targets.\"\n\nResults table row (planet, reference period in days, recovered period in days, relative period error, phase error, sampled events), and the depth sentences:\n\"| WASP-126 b | 3.288787030 | 3.288957559 | 0.00519% | 8.503 minutes | 8 |\"\n\"The fitted box depths are 0.9474% and 0.2189%, respectively.\"\n\"Their formal signal-to-noise ratios are 652.4 and 46.0.\"\n\nLimits:\n\"This is a guided recovery test, not a blind search or independent population evaluation.\"\n\"This result supports the brightness-series workflow. It does not validate that preparation for depth measurements or discovery searches.\"\n\"These ratios assume the supplied independent errors. They do not measure false-alarm probability or discovery confidence.\"\n\"The phase errors describe a coarse box search, not precision transit timing.\"\n\"No physical transit model, pixel-centroid check, blend assessment, or negative sample enters this experiment.\"\n\"| WASP-126 b | 0.52978% | 0.21892% | 0.4132 |\"\n\"The fixed preparation also changed transit depths, especially for WASP-126 b.\""
+        }
+      ]
+    }
+  ]
+}

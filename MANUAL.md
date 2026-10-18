@@ -11,6 +11,11 @@ The API address is `http://10.0.0.47:30870/api`.
 The API description is at `http://10.0.0.47:30870/api/openapi.json`.
 [backend/README.md](../backend/README.md) describes each endpoint.
 
+The [adapter](adapter/README.md) gives the API operations as MCP tools. It makes one tool for each operation in the API description.
+A tool call sends one HTTP request with your token and returns the status and the response. The adapter applies no rule.
+A response that is not JSON, for example an export or an artifact file, goes to a file. The result gives its path, size, and SHA-256.
+Start it with your own token file: `DELTA_TOKEN_FILE=<file> python3 -m adapter.server` in the `agents/` directory.
+
 | Operation | Endpoints |
 |---|---|
 | Read | `GET /health`, `/methods`, `/rules`, `/datasets`, `/observations`, `/targets`, `/runs`, `/runs/default`, `/runs/{id}/results`, `/runs/{id}/observations/{observation_id}/fold`, `/jobs/{id}`, `/artifacts/{id}`, `/artifacts/{id}/content` |
