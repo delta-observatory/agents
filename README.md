@@ -1,5 +1,7 @@
 # Delta Observatory agents
 
+This repository is one component of [Delta Observatory](https://github.com/delta-observatory/delta-observatory). The entry repository describes the application and restores every component.
+
 This repository holds tooling for research agents that use Delta Observatory.
 Agents use the same control surface as the frontend: the HTTP API.
 An agent sees the same data and takes the same actions as Richard in the frontend.
@@ -11,17 +13,17 @@ The adapter is an MCP server over stdio. It makes one tool for each operation in
 The importer writes research records from an explicit import manifest through the API, with import keys.
 The API has client tokens, permissions, and campaigns with budgets, blinding, and the cohort guard.
 It keeps agent records: candidates, assessments, decisions, notes, and agent tasks with leases.
-[DESIGN.md](../DESIGN.md) defines the target agent control surface. [ROADMAP.md](../ROADMAP.md) stage R8 tracks its delivery.
+[DESIGN.md](https://github.com/delta-observatory/delta-observatory/blob/main/DESIGN.md) defines the target agent control surface. [ROADMAP.md](https://github.com/delta-observatory/delta-observatory/blob/main/ROADMAP.md) stage R8 tracks its delivery.
 
 ## Boundary
 
 | Belongs in this repository | Stays in its current owner |
 |---|---|
-| An MCP adapter generated from the OpenAPI document, with no logic | API endpoints, in [backend/](../backend/README.md) |
-| The operating manual for agents, and role prompts | Contracts and record shapes, in [database/contracts/](../database/contracts/README.md) |
-| Campaign templates: selection rule, budgets, and stop conditions | Scientific methods, in [workers/](../workers/README.md) |
+| An MCP adapter generated from the OpenAPI document, with no logic | API endpoints, in [backend/](https://github.com/delta-observatory/backend/blob/main/README.md) |
+| The operating manual for agents, and role prompts | Contracts and record shapes, in [database/contracts/](https://github.com/delta-observatory/database/blob/main/contracts/README.md) |
+| Campaign templates: selection rule, budgets, and stop conditions | Scientific methods, in [workers/](https://github.com/delta-observatory/workers/blob/main/README.md) |
 | The template for a lab sandbox | Lab outputs, outside the workspace |
-| Agent evaluation harnesses, for example triage scoring against labels | Experiment records, in [experiments/](../experiments/README.md) |
+| Agent evaluation harnesses, for example triage scoring against labels | Experiment records, in [experiments/](https://github.com/delta-observatory/experiments/blob/main/README.md) (private) |
 | Notes about the agent surface | Agent records, in PostgreSQL through the API |
 
 ## Tests
@@ -59,3 +61,7 @@ The tests use a stub HTTP server. They do not use the running API.
 |---|---|
 | Lab sandbox template | None |
 | Triage evaluation harness | Labeled evaluation examples. The candidate, assessment, and decision records exist. |
+
+## License
+
+The code is under the [MIT License](LICENSE).

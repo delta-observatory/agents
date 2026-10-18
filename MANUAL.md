@@ -2,14 +2,14 @@
 
 This manual tells a research agent how to work with Delta Observatory.
 It describes the current API, data, and methods, and the rules for agent work.
-[DESIGN.md](../DESIGN.md) describes the target agent control surface. This manual describes what exists.
+[DESIGN.md](https://github.com/delta-observatory/delta-observatory/blob/main/DESIGN.md) describes the target agent control surface. This manual describes what exists.
 
 ## Control surface
 
 The HTTP API is the only control surface. The frontend uses the same API.
 The API address is `$DELTA_API_URL`, by default `http://localhost:30870/api`.
 The API description is at `<API>/openapi.json`.
-[backend/README.md](../backend/README.md) describes each endpoint.
+[backend/README.md](https://github.com/delta-observatory/backend/blob/main/README.md) describes each endpoint.
 
 The [adapter](adapter/README.md) gives the API operations as MCP tools. It makes one tool for each operation in the API description.
 A tool call sends one HTTP request with your token and returns the status and the response. The adapter applies no rule.
@@ -69,7 +69,7 @@ While blinding applies, you receive the text that the clients of your campaign w
 
 ## Research records
 
-Write your work as records through the API. Each record is a document of its contract in [database/contracts/records/](../database/contracts/README.md#research-records).
+Write your work as records through the API. Each record is a document of its contract in [database/contracts/records/](https://github.com/delta-observatory/database/blob/main/contracts/README.md#research-records).
 Put the contract name in the `contract` field, for example `"contract": "candidate/1"`.
 Records do not change. Write a new record to correct one, and name the earlier record in `supersedes`.
 
@@ -111,7 +111,7 @@ A task whose lease expires goes to the next claim. After the last permitted atte
 
 | Item | Current state |
 |---|---|
-| Indexed data | 64 TESS SPOC light curves: the 46 of the development set and 18 research light curves of a selection manifest. All are development data in the [cohort register](../experiments/COHORTS.md). |
+| Indexed data | 64 TESS SPOC light curves: the 46 of the development set and 18 research light curves of a selection manifest. All are development data in the [cohort register](https://github.com/delta-observatory/experiments/blob/main/COHORTS.md) (private). |
 | `tess-spoc-index` v1 | Ingestion only. No scientific calculation. |
 | `tess-bls` v1 | Provisional transit search with the fixed T01 defaults. Depth accuracy, completeness, and false-alarm rates are not validated. |
 | Acquisition | No API method. The platform has no data for new-object search. |

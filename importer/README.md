@@ -65,7 +65,7 @@ The author of a manifest states only values that the source record states. A jud
 | `uri` | Optional. The default is `workspace:<path>`. |
 | `notes`, `decisions` | Optional. |
 
-[database/contracts/](../../database/contracts/README.md) defines the candidate, note, and decision documents and the `import_key` field.
+[database/contracts/](https://github.com/delta-observatory/database/blob/main/contracts/README.md) defines the candidate, note, and decision documents and the `import_key` field.
 
 ## Manifests
 
