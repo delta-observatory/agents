@@ -5,8 +5,8 @@ Read [MANUAL.md](MANUAL.md) before agent research work.
 Read the [workspace instructions](../AGENTS.md).
 Follow the boundary and the rules in [README.md](README.md).
 
-Use the API at `http://10.0.0.47:30870/api`.
-Read the API description at `http://10.0.0.47:30870/api/openapi.json`.
+Use the API at `$DELTA_API_URL`, by default `http://localhost:30870/api`.
+Read the API description at `<API>/openapi.json`.
 Do not read or write PostgreSQL directly.
 Do not read `raw/` or the artifact volume directly.
 Do not define job, result, method-parameter, or record shapes in this repository.

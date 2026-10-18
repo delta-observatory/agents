@@ -7,8 +7,8 @@ It describes the current API, data, and methods, and the rules for agent work.
 ## Control surface
 
 The HTTP API is the only control surface. The frontend uses the same API.
-The API address is `http://10.0.0.47:30870/api`.
-The API description is at `http://10.0.0.47:30870/api/openapi.json`.
+The API address is `$DELTA_API_URL`, by default `http://localhost:30870/api`.
+The API description is at `<API>/openapi.json`.
 [backend/README.md](../backend/README.md) describes each endpoint.
 
 The [adapter](adapter/README.md) gives the API operations as MCP tools. It makes one tool for each operation in the API description.

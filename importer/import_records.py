@@ -11,7 +11,7 @@ The importer writes candidates of tier "lab" with external references only. It w
 no assessment, and no run. External files stay where they are. They are proposals, not platform evidence.
 
 Usage: python importer/import_records.py --manifest <file> [--dry-run]
-Settings: DELTA_API_URL (default http://10.0.0.47:30870/api) and DELTA_TOKEN_FILE, or --api and --token-file.
+Settings: DELTA_API_URL (default http://localhost:30870/api) and DELTA_TOKEN_FILE, or --api and --token-file.
 """
 import argparse
 import hashlib
@@ -181,7 +181,7 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--manifest', required=True, type=Path)
     parser.add_argument('--dry-run', action='store_true', help='check files and observations, and write nothing')
-    parser.add_argument('--api', default=os.environ.get('DELTA_API_URL', 'http://10.0.0.47:30870/api'))
+    parser.add_argument('--api', default=os.environ.get('DELTA_API_URL', 'http://localhost:30870/api'))
     parser.add_argument('--token-file', default=os.environ.get('DELTA_TOKEN_FILE'))
     args = parser.parse_args(argv)
     token = Path(args.token_file).expanduser().read_text().strip() if args.token_file else None

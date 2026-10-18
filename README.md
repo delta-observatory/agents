@@ -35,7 +35,7 @@ The tests use a stub HTTP server. They do not use the running API.
 
 ## Rules
 
-1. Agent code uses the API only. The API address is `http://10.0.0.47:30870/api`.
+1. Agent code uses the API only. The API address is `$DELTA_API_URL`, by default `http://localhost:30870/api`.
 2. Agent code receives no `DATABASE_URL`, no `raw/` mount, and no artifact-volume mount.
 3. This repository defines no job, result, method-parameter, or record shapes. Put a new shape in `database/contracts/` first.
 4. Keep lab outputs outside the workspace. Each lab run uses its own directory.

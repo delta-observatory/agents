@@ -24,7 +24,8 @@ An MCP client starts the server as a command. Example client entry:
       "command": "python3",
       "args": ["-m", "adapter.server"],
       "env": {
-        "PYTHONPATH": "/home/richardtidwell/repos/delta-observatory/agents",
+        "PYTHONPATH": "<path to the agents repository>",
+        "DELTA_API_URL": "http://localhost:30870/api",
         "DELTA_TOKEN_FILE": "<token file of the agent client>"
       }
     }
@@ -36,7 +37,7 @@ Give each agent the token file of its own client. Do not give an agent Richard's
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `DELTA_API_URL` | `http://10.0.0.47:30870/api` | API address. |
+| `DELTA_API_URL` | `http://localhost:30870/api` | API address. |
 | `DELTA_TOKEN_FILE` | none | File with the client token. Without it, requests carry no token, and the API gives 401. |
 | `DELTA_OPENAPI` | `<DELTA_API_URL>/openapi.json` | File or URL of the API description. |
 | `DELTA_ADAPTER_DOWNLOADS` | `~/.cache/delta-adapter/downloads` | Directory for responses that are not inline JSON. Keep it outside the workspace. |
@@ -46,8 +47,8 @@ Give each agent the token file of its own client. Do not give an agent Richard's
 List the tools without a server:
 
 ```bash
-python3 -m adapter.generate --openapi http://10.0.0.47:30870/api/openapi.json
-python3 -m adapter.generate --openapi http://10.0.0.47:30870/api/openapi.json --print
+python3 -m adapter.generate --openapi http://localhost:30870/api/openapi.json
+python3 -m adapter.generate --openapi http://localhost:30870/api/openapi.json --print
 ```
 
 ## Tools

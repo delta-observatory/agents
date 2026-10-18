@@ -5,7 +5,7 @@ A tool call sends exactly one HTTP request with the client token and returns the
 The API applies every permission, campaign rule, and scientific rule. The server adds no logic.
 
 Settings:
-  DELTA_API_URL            API address. Default http://10.0.0.47:30870/api
+  DELTA_API_URL            API address. Default http://localhost:30870/api
   DELTA_TOKEN_FILE         File that holds the client token. Without it, requests carry no token.
   DELTA_OPENAPI            Optional file or URL of the API description. Default <DELTA_API_URL>/openapi.json
   DELTA_ADAPTER_DOWNLOADS  Directory for responses that are not inline JSON. Default ~/.cache/delta-adapter/downloads
@@ -42,7 +42,7 @@ class Settings:
 
     @classmethod
     def from_env(cls, env=os.environ) -> 'Settings':
-        api_url = env.get('DELTA_API_URL', 'http://10.0.0.47:30870/api').rstrip('/')
+        api_url = env.get('DELTA_API_URL', 'http://localhost:30870/api').rstrip('/')
         token_file = env.get('DELTA_TOKEN_FILE')
         token = Path(token_file).expanduser().read_text().strip() if token_file else None
         return cls(api_url=api_url, token=token or None,
