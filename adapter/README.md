@@ -70,5 +70,5 @@ python3 -m unittest discover -s adapter/tests -t .
 ```
 
 The tests use `tests/openapi.fixture.json` and a stub HTTP server.
-The fixture is the API description of backend commit `1296e66`.
+The fixture is the API description of backend commit `eb3bcf8`.
 They check tool generation, stable names, parameter placement, status pass-through, downloads, the stdio session, and the absence of the token in output.
