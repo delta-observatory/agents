@@ -18,10 +18,10 @@ Start it with your own token file: `DELTA_TOKEN_FILE=<file> python3 -m adapter.s
 
 | Operation | Endpoints |
 |---|---|
-| Read | `GET /health`, `/methods`, `/rules`, `/datasets`, `/observations`, `/targets`, `/runs`, `/runs/default`, `/runs/{id}/results`, `/runs/{id}/observations/{observation_id}/fold`, `/jobs/{id}`, `/artifacts/{id}`, `/artifacts/{id}/content` |
+| Read | `GET /health`, `/methods`, `/rules`, `/datasets`, `/observations`, `/targets`, `/runs`, `/runs/default`, `/runs/{id}/results`, `/runs/{id}/observations/{observation_id}/fold`, `/runs/compare`, `/runs/{id}/export`, `/candidates/{id}/export`, `/jobs/{id}`, `/artifacts/{id}`, `/artifacts/{id}/content` |
 | Read records | `GET /candidates`, `/candidates/{id}`, `/assessments`, `/decisions`, `/notes`, `/tasks`, `/tasks/{id}` |
 | Check without a write | `POST /runs/estimate` |
-| Write | `POST /runs`, `POST /jobs/{id}/cancel` |
+| Write | `POST /runs`, `POST /runs/{id}/retry`, `POST /runs/{id}/cancel`, `POST /jobs/{id}/cancel` |
 | Write records | `POST /candidates`, `/assessments`, `/decisions`, `/notes`, `/tasks`, `/tasks/claim`, `/tasks/{id}/heartbeat`, `/tasks/{id}/release`, `/tasks/{id}/report`, `/tasks/{id}/cancel` |
 
 ## Same view as the frontend
@@ -35,6 +35,8 @@ The frontend shows only values that the API supplies, and it applies only API ru
 | The run shown without a choice | `GET /runs/default` (rule `default-run/1`). |
 | Phase fold and its binned means | `GET /runs/{run}/observations/{observation}/fold`. Add `period=<days>` for a display fold. A fold is a display calculation, not a stored result. |
 | Work estimate and parameter check in the run form | `POST /runs/estimate` with the body of `POST /runs`. It writes nothing. |
+| Run comparison in the ANALYSIS workspace | `GET /runs/compare?run_a=<run>&run_b=<run>` (rule `run-comparison/1`). A difference is a display calculation without an uncertainty. |
+| Export dialog | `GET /runs/{id}/export` or `GET /candidates/{id}/export`. The ZIP file holds `manifest.json` (contract `export/1`) with the SHA-256 of each file. |
 
 `GET /rules` describes each named rule. A rule name has a version, for example `period-agreement/1`.
 The `status` values are `match`, `near`, `miss`, `signal`, `eb`, and `quiet`. They are display bins from unvalidated thresholds.
@@ -63,6 +65,7 @@ The API applies these rules to each of your requests:
 A 503 response means that the cohort guard cannot read the register. Stop and report it.
 The `labels` level withholds `labels`, `label_class`, `planet_name`, `reference_period_days`, `relative_period_error`, `status`, and `reference_comparison` values.
 The `labels_identity` level also withholds `target_id`, `relative_path`, `sha256`, sky position, and identifying header keywords.
+While blinding applies, you receive the text that the clients of your campaign wrote, and the campaign question and task instructions. Other writers' text is null, and the record has `text_withheld: true` (rule `free-text/1`).
 
 ## Research records
 
@@ -108,7 +111,7 @@ A task whose lease expires goes to the next claim. After the last permitted atte
 
 | Item | Current state |
 |---|---|
-| Indexed data | 46 TESS SPOC light curves. All are development data in the [cohort register](../experiments/COHORTS.md). |
+| Indexed data | 64 TESS SPOC light curves: the 46 of the development set and 18 research light curves of a selection manifest. All are development data in the [cohort register](../experiments/COHORTS.md). |
 | `tess-spoc-index` v1 | Ingestion only. No scientific calculation. |
 | `tess-bls` v1 | Provisional transit search with the fixed T01 defaults. Depth accuracy, completeness, and false-alarm rates are not validated. |
 | Acquisition | No API method. The platform has no data for new-object search. |

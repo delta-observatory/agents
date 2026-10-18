@@ -50,6 +50,8 @@ The tests use a stub HTTP server. They do not use the running API.
 | [adapter/](adapter/README.md) | MCP adapter: `generate.py` makes tools from the API description, and `server.py` serves them over stdio. |
 | [importer/](importer/README.md) | Research importer: `import_records.py` and the `research-import/1` manifest format. |
 | [imports/](imports/) | Import manifests. Each manifest lists its files with SHA-256 and size. |
+| [campaigns/](campaigns/) | Approved campaign files. `adapter-check.md` is the file of the functional adapter check. |
+| `checks/adapter_lifecycle.py` | Functional check: one agent task through the adapter, with three requests that the API must refuse. Run `DELTA_TOKEN_FILE=<agent token file> python3 -m checks.adapter_lifecycle` in `agents/`. |
 
 ## Planned contents
 
