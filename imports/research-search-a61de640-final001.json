@@ -1,0 +1,685 @@
+{
+ "format": "research-import/1",
+ "description": "The seven retained candidates of publication FINAL001 of delta-research agent search-a61de640-3c7c-4d65-b80c-2a1d6855eecb, on the 18 registered development light curves of the selection manifest research-search-a61de640-final001. Each item writes one lab candidate with the published dossier, report, target table, and publication manifest as external references, one note that quotes the report limits, and one advisory model-judgment decision that keeps the source assessment \"retained\". The manifest writes no assessment, so the platform evidence status stays unreviewed and the identity status stays unchecked.",
+ "root": "../../..",
+ "items": [
+  {
+   "import_key": "research:search-a61de640/final001/tic-26880783",
+   "observations": [
+    {
+     "target_id": "TIC:26880783",
+     "sha256": "090f50a43c53e57e4086790a04f0e4547d567b8f45212280127bcfe67b108eec",
+     "file_name": "tess2022217014003-s0055-0000000026880783-0242-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:26880783",
+     "sha256": "5ef23600b2c9ff98034e916aafa66dede8ac3ffa130ef4026b61a8ab75e0d784",
+     "file_name": "tess2022244194134-s0056-0000000026880783-0243-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:26880783",
+     "sha256": "4af623cb943ebe765e3795d50e13537ae22bde19f3b2bb5704e2cb725a13dde6",
+     "file_name": "tess2024003055635-s0074-0000000026880783-0269-s_lc.fits"
+    }
+   ],
+   "external_files": [
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-26880783.md",
+     "sha256": "87362be921702c466ebb29eee78787501a060e7f0396b4decb70147f9292f209",
+     "bytes": 8432,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-26880783.md",
+     "description": "Research dossier for TIC 26880783: per-sector and joint measurements, pixel checks, alternatives, and missing evidence."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "sha256": "150c78f9f79ad287fc1929c2c146d7dfc13eb795981a4fad386dc0256ee0aa09",
+     "bytes": 10418,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "description": "FINAL001 report: retained, ambiguous, and rejected signals and their limits."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "sha256": "6a9df74f120863ac1c31c9e0710e559320187cd2915a0453ec2fc72df9c5c505",
+     "bytes": 800920,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "description": "FINAL001 target table with the assessment and reason of each inspected signal."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "sha256": "4216a9eca58d4295a42b94f32dd77e0ee4880eaf2321159a1892544d85597744",
+     "bytes": 5310,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "description": "FINAL001 publication manifest with the agent commit and resource audit."
+    }
+   ],
+   "candidate": {
+    "contract": "candidate/1",
+    "kind": "transit_signal",
+    "tier": "lab",
+    "label": "F001-1",
+    "summary": "Retained unconfirmed candidate of delta-research publication FINAL001. Existing candidate TOI 1364.01. Period 1.775352554 days from a selected joint timing check, without a calibrated uncertainty. Evidence: 40 positive windows across three sectors. Main unresolved issue: Nearby star and weak possible secondary. Next observation in the report: Resolved transit photometry."
+   },
+   "notes": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-26880783/note-limits",
+     "body": "Quoted from the FINAL001 report of delta-research agent search-a61de640-3c7c-4d65-b80c-2a1d6855eecb: \"All seven retained candidates match previously reported TOIs. No unmatched credible candidate survives.\" \"The periods come from selected joint timing checks. They do not include calibrated period uncertainties.\" \"An event window counts sampled predicted timing. A positive local depth alone does not establish a planetary transit.\" \"Visual assessments are model judgments. Formal errors omit correlated noise, and preprocessing can change transit shapes and depths.\""
+    }
+   ],
+   "decisions": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-26880783/decision-final-assessment",
+     "document": {
+      "contract": "decision/1",
+      "question": {
+       "id": "research-final-assessment",
+       "version": 1
+      },
+      "mode": "advisory",
+      "judge": "model",
+      "model": {
+       "kind": "unavailable",
+       "reason": "The publication does not name the model."
+      },
+      "packet": {
+       "kind": "unavailable",
+       "reason": "The publication does not identify the evidence that the model judged."
+      },
+      "policy": {
+       "kind": "unavailable",
+       "reason": "The research agent applied its own triage criteria. No platform decision policy exists."
+      },
+      "judged_evidence_status": "supported",
+      "action": "request_more_data",
+      "reason": "FINAL001 assessment \"retained\": Consistent narrow dips recur in three sectors with shared timing and near-target pixel differences. The existing candidate TOI 1364.01 remains unconfirmed, with unresolved close-neighbor confusion.",
+      "response": {
+       "source_assessment": "retained",
+       "source_catalog_identity": "not checked",
+       "source_table": "targets.csv",
+       "next_observation": "Resolved transit photometry",
+       "mapping": "The FINAL001 categories retained, ambiguous, and rejected map to the judged evidence statuses supported, ambiguous, and rejected."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "import_key": "research:search-a61de640/final001/tic-65845738",
+   "observations": [
+    {
+     "target_id": "TIC:65845738",
+     "sha256": "7ef0fe0b962f9c890122056af884d944a3f2cbcc14d17898db9c8e79f285a6ca",
+     "file_name": "tess2022244194134-s0056-0000000065845738-0243-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:65845738",
+     "sha256": "b6a697a82d8a902572c0994ded7fb5a825e1d341f6f9bc0bcd750bfa604e928a",
+     "file_name": "tess2024030031500-s0075-0000000065845738-0270-s_lc.fits"
+    }
+   ],
+   "external_files": [
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-65845738.md",
+     "sha256": "34dd77bd22ba72eabee083ceecd2b30c1b5523dadc627d1f610bd7b8137bc47e",
+     "bytes": 7834,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-65845738.md",
+     "description": "Research dossier for TIC 65845738: per-sector and joint measurements, pixel checks, alternatives, and missing evidence."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "sha256": "150c78f9f79ad287fc1929c2c146d7dfc13eb795981a4fad386dc0256ee0aa09",
+     "bytes": 10418,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "description": "FINAL001 report: retained, ambiguous, and rejected signals and their limits."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "sha256": "6a9df74f120863ac1c31c9e0710e559320187cd2915a0453ec2fc72df9c5c505",
+     "bytes": 800920,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "description": "FINAL001 target table with the assessment and reason of each inspected signal."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "sha256": "4216a9eca58d4295a42b94f32dd77e0ee4880eaf2321159a1892544d85597744",
+     "bytes": 5310,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "description": "FINAL001 publication manifest with the agent commit and resource audit."
+    }
+   ],
+   "candidate": {
+    "contract": "candidate/1",
+    "kind": "transit_signal",
+    "tier": "lab",
+    "label": "F001-2",
+    "summary": "Retained unconfirmed candidate of delta-research publication FINAL001. Existing candidate TOI 5204.01. Period 1.593661941 days from a selected joint timing check, without a calibrated uncertainty. Evidence: 35 positive windows across two sectors. Main unresolved issue: Contamination and large companion radius. Next observation in the report: Orbital radial-velocity spectroscopy."
+   },
+   "notes": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-65845738/note-limits",
+     "body": "Quoted from the FINAL001 report of delta-research agent search-a61de640-3c7c-4d65-b80c-2a1d6855eecb: \"All seven retained candidates match previously reported TOIs. No unmatched credible candidate survives.\" \"The periods come from selected joint timing checks. They do not include calibrated period uncertainties.\" \"An event window counts sampled predicted timing. A positive local depth alone does not establish a planetary transit.\" \"Visual assessments are model judgments. Formal errors omit correlated noise, and preprocessing can change transit shapes and depths.\""
+    }
+   ],
+   "decisions": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-65845738/decision-final-assessment",
+     "document": {
+      "contract": "decision/1",
+      "question": {
+       "id": "research-final-assessment",
+       "version": 1
+      },
+      "mode": "advisory",
+      "judge": "model",
+      "model": {
+       "kind": "unavailable",
+       "reason": "The publication does not name the model."
+      },
+      "packet": {
+       "kind": "unavailable",
+       "reason": "The publication does not identify the evidence that the model judged."
+      },
+      "policy": {
+       "kind": "unavailable",
+       "reason": "The research agent applied its own triage criteria. No platform decision policy exists."
+      },
+      "judged_evidence_status": "supported",
+      "action": "request_more_data",
+      "reason": "FINAL001 assessment \"retained\": Thirty-five positive windows share a period across two sectors, with a near-target pixel maximum. The apparent secondary disappears before flattening. TOI-5204.01 remains unconfirmed, with dilution and mass unresolved.",
+      "response": {
+       "source_assessment": "retained",
+       "source_catalog_identity": "not checked",
+       "source_table": "targets.csv",
+       "next_observation": "Orbital radial-velocity spectroscopy",
+       "mapping": "The FINAL001 categories retained, ambiguous, and rejected map to the judged evidence statuses supported, ambiguous, and rejected."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "import_key": "research:search-a61de640/final001/tic-27459498",
+   "observations": [
+    {
+     "target_id": "TIC:27459498",
+     "sha256": "981dc5746de533a284e13af804f6958e1bee04202f3aed7b04993605bdd2aba8",
+     "file_name": "tess2022217014003-s0055-0000000027459498-0242-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:27459498",
+     "sha256": "5b3826cb6fd1f4c324d8dcc4db6ac6a96a19f75633f97f5ea3cd79b5b16ae3be",
+     "file_name": "tess2022244194134-s0056-0000000027459498-0243-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:27459498",
+     "sha256": "4ff2b475ed6e70ad136bbdf20e3f593c8f7036c7ded1b7b387ad0e805ec6443d",
+     "file_name": "tess2024003055635-s0074-0000000027459498-0269-s_lc.fits"
+    }
+   ],
+   "external_files": [
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-27459498.md",
+     "sha256": "d9eda453dd7a03d2a9138c18ed101b78c9abfbf6f0c3baa347dba2fa0a8f6963",
+     "bytes": 7513,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-27459498.md",
+     "description": "Research dossier for TIC 27459498: per-sector and joint measurements, pixel checks, alternatives, and missing evidence."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "sha256": "150c78f9f79ad287fc1929c2c146d7dfc13eb795981a4fad386dc0256ee0aa09",
+     "bytes": 10418,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "description": "FINAL001 report: retained, ambiguous, and rejected signals and their limits."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "sha256": "6a9df74f120863ac1c31c9e0710e559320187cd2915a0453ec2fc72df9c5c505",
+     "bytes": 800920,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "description": "FINAL001 target table with the assessment and reason of each inspected signal."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "sha256": "4216a9eca58d4295a42b94f32dd77e0ee4880eaf2321159a1892544d85597744",
+     "bytes": 5310,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "description": "FINAL001 publication manifest with the agent commit and resource audit."
+    }
+   ],
+   "candidate": {
+    "contract": "candidate/1",
+    "kind": "transit_signal",
+    "tier": "lab",
+    "label": "F001-3",
+    "summary": "Retained unconfirmed candidate of delta-research publication FINAL001. Existing candidate TOI 3538.01. Period 7.310543468 days from a selected joint timing check, without a calibrated uncertainty. Evidence: 12 positive windows across three sectors. Main unresolved issue: Substantial contamination. Next observation in the report: Resolved transit photometry."
+   },
+   "notes": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-27459498/note-limits",
+     "body": "Quoted from the FINAL001 report of delta-research agent search-a61de640-3c7c-4d65-b80c-2a1d6855eecb: \"All seven retained candidates match previously reported TOIs. No unmatched credible candidate survives.\" \"The periods come from selected joint timing checks. They do not include calibrated period uncertainties.\" \"An event window counts sampled predicted timing. A positive local depth alone does not establish a planetary transit.\" \"Visual assessments are model judgments. Formal errors omit correlated noise, and preprocessing can change transit shapes and depths.\""
+    }
+   ],
+   "decisions": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-27459498/decision-final-assessment",
+     "document": {
+      "contract": "decision/1",
+      "question": {
+       "id": "research-final-assessment",
+       "version": 1
+      },
+      "mode": "advisory",
+      "judge": "model",
+      "model": {
+       "kind": "unavailable",
+       "reason": "The publication does not name the model."
+      },
+      "packet": {
+       "kind": "unavailable",
+       "reason": "The publication does not identify the evidence that the model judged."
+      },
+      "policy": {
+       "kind": "unavailable",
+       "reason": "The research agent applied its own triage criteria. No platform decision policy exists."
+      },
+      "judged_evidence_status": "supported",
+      "action": "request_more_data",
+      "reason": "FINAL001 assessment \"retained\": Twelve local depressions align across three sectors. Pixel differences are near the target. TOI 3538.01 remains an unconfirmed candidate with unresolved contamination.",
+      "response": {
+       "source_assessment": "retained",
+       "source_catalog_identity": "not checked",
+       "source_table": "targets.csv",
+       "next_observation": "Resolved transit photometry",
+       "mapping": "The FINAL001 categories retained, ambiguous, and rejected map to the judged evidence statuses supported, ambiguous, and rejected."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "import_key": "research:search-a61de640/final001/tic-162387333",
+   "observations": [
+    {
+     "target_id": "TIC:162387333",
+     "sha256": "54e541fcb3759995a71bbb16b71928b9ab8b3b23f0329563a21fff769463a7b5",
+     "file_name": "tess2022244194134-s0056-0000000162387333-0243-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:162387333",
+     "sha256": "484d1ef90bd844341bb34ec0b29b0355eacd46be94d7a1348649d3aabe646458",
+     "file_name": "tess2024249191853-s0083-0000000162387333-0280-s_lc.fits"
+    }
+   ],
+   "external_files": [
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-162387333.md",
+     "sha256": "ad48015959ced20e0419a23d0b595775d78f238c4e251e2eb8c7840b33d02f3d",
+     "bytes": 6822,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-162387333.md",
+     "description": "Research dossier for TIC 162387333: per-sector and joint measurements, pixel checks, alternatives, and missing evidence."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "sha256": "150c78f9f79ad287fc1929c2c146d7dfc13eb795981a4fad386dc0256ee0aa09",
+     "bytes": 10418,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "description": "FINAL001 report: retained, ambiguous, and rejected signals and their limits."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "sha256": "6a9df74f120863ac1c31c9e0710e559320187cd2915a0453ec2fc72df9c5c505",
+     "bytes": 800920,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "description": "FINAL001 target table with the assessment and reason of each inspected signal."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "sha256": "4216a9eca58d4295a42b94f32dd77e0ee4880eaf2321159a1892544d85597744",
+     "bytes": 5310,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "description": "FINAL001 publication manifest with the agent commit and resource audit."
+    }
+   ],
+   "candidate": {
+    "contract": "candidate/1",
+    "kind": "transit_signal",
+    "tier": "lab",
+    "label": "F001-4",
+    "summary": "Retained unconfirmed candidate of delta-research publication FINAL001. Existing candidate TOI 3592.01. Period 5.527997095 days from a selected joint timing check, without a calibrated uncertainty. Evidence: Eight positive windows among nine across two sectors. Main unresolved issue: Contamination and uncertain stellar properties. Next observation in the report: Resolved transit photometry."
+   },
+   "notes": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-162387333/note-limits",
+     "body": "Quoted from the FINAL001 report of delta-research agent search-a61de640-3c7c-4d65-b80c-2a1d6855eecb: \"All seven retained candidates match previously reported TOIs. No unmatched credible candidate survives.\" \"The periods come from selected joint timing checks. They do not include calibrated period uncertainties.\" \"An event window counts sampled predicted timing. A positive local depth alone does not establish a planetary transit.\" \"Visual assessments are model judgments. Formal errors omit correlated noise, and preprocessing can change transit shapes and depths.\""
+    }
+   ],
+   "decisions": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-162387333/decision-final-assessment",
+     "document": {
+      "contract": "decision/1",
+      "question": {
+       "id": "research-final-assessment",
+       "version": 1
+      },
+      "mode": "advisory",
+      "judge": "model",
+      "model": {
+       "kind": "unavailable",
+       "reason": "The publication does not name the model."
+      },
+      "packet": {
+       "kind": "unavailable",
+       "reason": "The publication does not identify the evidence that the model judged."
+      },
+      "policy": {
+       "kind": "unavailable",
+       "reason": "The research agent applied its own triage criteria. No platform decision policy exists."
+      },
+      "judged_evidence_status": "supported",
+      "action": "request_more_data",
+      "reason": "FINAL001 assessment \"retained\": Eight positive dips share timing across two sectors. The near-target pixel signal remains unresolved within a crowded aperture. This is existing candidate TOI 3592.01.",
+      "response": {
+       "source_assessment": "retained",
+       "source_catalog_identity": "not checked",
+       "source_table": "targets.csv",
+       "next_observation": "Resolved transit photometry",
+       "mapping": "The FINAL001 categories retained, ambiguous, and rejected map to the judged evidence statuses supported, ambiguous, and rejected."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "import_key": "research:search-a61de640/final001/tic-193482096",
+   "observations": [
+    {
+     "target_id": "TIC:193482096",
+     "sha256": "7e24cecc3af9973e1350024e634e02fb4159d450b16d8a27aebebeb6496554d2",
+     "file_name": "tess2022217014003-s0055-0000000193482096-0242-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:193482096",
+     "sha256": "4a6e805a094358a97b4f85a4bd8f86e93a7af1c8f54279a03515dc12404b13ab",
+     "file_name": "tess2022244194134-s0056-0000000193482096-0243-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:193482096",
+     "sha256": "d8755005eafc29089229addb6b8997fe287a7a7af4607836e88c8fbe540d6040",
+     "file_name": "tess2024030031500-s0075-0000000193482096-0270-s_lc.fits"
+    }
+   ],
+   "external_files": [
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-193482096.md",
+     "sha256": "5523b50636c57fda4eff73e3b142118d7c0a2fd0076bae75fe7a582a1394b7ff",
+     "bytes": 8712,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-193482096.md",
+     "description": "Research dossier for TIC 193482096: per-sector and joint measurements, pixel checks, alternatives, and missing evidence."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "sha256": "150c78f9f79ad287fc1929c2c146d7dfc13eb795981a4fad386dc0256ee0aa09",
+     "bytes": 10418,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "description": "FINAL001 report: retained, ambiguous, and rejected signals and their limits."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "sha256": "6a9df74f120863ac1c31c9e0710e559320187cd2915a0453ec2fc72df9c5c505",
+     "bytes": 800920,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "description": "FINAL001 target table with the assessment and reason of each inspected signal."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "sha256": "4216a9eca58d4295a42b94f32dd77e0ee4880eaf2321159a1892544d85597744",
+     "bytes": 5310,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "description": "FINAL001 publication manifest with the agent commit and resource audit."
+    }
+   ],
+   "candidate": {
+    "contract": "candidate/1",
+    "kind": "transit_signal",
+    "tier": "lab",
+    "label": "F001-5",
+    "summary": "Retained unconfirmed candidate of delta-research publication FINAL001. Existing candidate TOI 3564.01. Period 4.087393825 days from a selected joint timing check, without a calibrated uncertainty. Evidence: 20 positive windows across three sectors. Main unresolved issue: Large companion and conflicting stellar estimates. Next observation in the report: Orbital radial-velocity spectroscopy."
+   },
+   "notes": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-193482096/note-limits",
+     "body": "Quoted from the FINAL001 report of delta-research agent search-a61de640-3c7c-4d65-b80c-2a1d6855eecb: \"All seven retained candidates match previously reported TOIs. No unmatched credible candidate survives.\" \"The periods come from selected joint timing checks. They do not include calibrated period uncertainties.\" \"An event window counts sampled predicted timing. A positive local depth alone does not establish a planetary transit.\" \"Visual assessments are model judgments. Formal errors omit correlated noise, and preprocessing can change transit shapes and depths.\""
+    }
+   ],
+   "decisions": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-193482096/decision-final-assessment",
+     "document": {
+      "contract": "decision/1",
+      "question": {
+       "id": "research-final-assessment",
+       "version": 1
+      },
+      "mode": "advisory",
+      "judge": "model",
+      "model": {
+       "kind": "unavailable",
+       "reason": "The publication does not name the model."
+      },
+      "packet": {
+       "kind": "unavailable",
+       "reason": "The publication does not identify the evidence that the model judged."
+      },
+      "policy": {
+       "kind": "unavailable",
+       "reason": "The research agent applied its own triage criteria. No platform decision policy exists."
+      },
+      "judged_evidence_status": "supported",
+      "action": "request_more_data",
+      "reason": "FINAL001 assessment \"retained\": Twenty positive windows share timing across three sectors. Local baseline checks remove parity differences. TOI 3564.01 remains unconfirmed, with a large radius and unresolved companion mass.",
+      "response": {
+       "source_assessment": "retained",
+       "source_catalog_identity": "TOI 3564.01 PC",
+       "source_table": "targets.csv",
+       "next_observation": "Orbital radial-velocity spectroscopy",
+       "mapping": "The FINAL001 categories retained, ambiguous, and rejected map to the judged evidence statuses supported, ambiguous, and rejected."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "import_key": "research:search-a61de640/final001/tic-48220826",
+   "observations": [
+    {
+     "target_id": "TIC:48220826",
+     "sha256": "65ca08b3657355319ddcb7ad6d18750e179c943e9f788c041dc226c50fcf0cd5",
+     "file_name": "tess2022217014003-s0055-0000000048220826-0242-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:48220826",
+     "sha256": "526465033a161906d3d8fcb893fc217628ded86e3af0dcb2ec1f18f91b1e0a15",
+     "file_name": "tess2022244194134-s0056-0000000048220826-0243-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:48220826",
+     "sha256": "d693b778677df680bbdacc24a6bd8a6a27104019deec448521d1265aec62f6e8",
+     "file_name": "tess2022330142927-s0059-0000000048220826-0248-s_lc.fits"
+    }
+   ],
+   "external_files": [
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-48220826.md",
+     "sha256": "e24d779fb2529dd828f87b1c0cf05168760573ce36a8a90c0c5854c06ea342f9",
+     "bytes": 9045,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-48220826.md",
+     "description": "Research dossier for TIC 48220826: per-sector and joint measurements, pixel checks, alternatives, and missing evidence."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "sha256": "150c78f9f79ad287fc1929c2c146d7dfc13eb795981a4fad386dc0256ee0aa09",
+     "bytes": 10418,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "description": "FINAL001 report: retained, ambiguous, and rejected signals and their limits."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "sha256": "6a9df74f120863ac1c31c9e0710e559320187cd2915a0453ec2fc72df9c5c505",
+     "bytes": 800920,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "description": "FINAL001 target table with the assessment and reason of each inspected signal."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "sha256": "4216a9eca58d4295a42b94f32dd77e0ee4880eaf2321159a1892544d85597744",
+     "bytes": 5310,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "description": "FINAL001 publication manifest with the agent commit and resource audit."
+    }
+   ],
+   "candidate": {
+    "contract": "candidate/1",
+    "kind": "transit_signal",
+    "tier": "lab",
+    "label": "F001-6",
+    "summary": "Retained unconfirmed candidate of delta-research publication FINAL001. Existing candidate TOI 3886.01. Period 3.021621010 days from a selected joint timing check, without a calibrated uncertainty. Evidence: 25 positive windows across three sectors. Main unresolved issue: Missing stellar scale and possible secondary. Next observation in the report: Spectroscopy with stellar characterization."
+   },
+   "notes": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-48220826/note-limits",
+     "body": "Quoted from the FINAL001 report of delta-research agent search-a61de640-3c7c-4d65-b80c-2a1d6855eecb: \"All seven retained candidates match previously reported TOIs. No unmatched credible candidate survives.\" \"The periods come from selected joint timing checks. They do not include calibrated period uncertainties.\" \"An event window counts sampled predicted timing. A positive local depth alone does not establish a planetary transit.\" \"Visual assessments are model judgments. Formal errors omit correlated noise, and preprocessing can change transit shapes and depths.\""
+    }
+   ],
+   "decisions": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-48220826/decision-final-assessment",
+     "document": {
+      "contract": "decision/1",
+      "question": {
+       "id": "research-final-assessment",
+       "version": 1
+      },
+      "mode": "advisory",
+      "judge": "model",
+      "model": {
+       "kind": "unavailable",
+       "reason": "The publication does not name the model."
+      },
+      "packet": {
+       "kind": "unavailable",
+       "reason": "The publication does not identify the evidence that the model judged."
+      },
+      "policy": {
+       "kind": "unavailable",
+       "reason": "The research agent applied its own triage criteria. No platform decision policy exists."
+      },
+      "judged_evidence_status": "supported",
+      "action": "request_more_data",
+      "reason": "FINAL001 assessment \"retained\": Twenty-five positive windows share timing across three sectors near the target. Missing stellar radius and a weak possible secondary remain material limitations.",
+      "response": {
+       "source_assessment": "retained",
+       "source_catalog_identity": "TOI 3886.01 PC",
+       "source_table": "targets.csv",
+       "next_observation": "Spectroscopy with stellar characterization",
+       "mapping": "The FINAL001 categories retained, ambiguous, and rejected map to the judged evidence statuses supported, ambiguous, and rejected."
+      }
+     }
+    }
+   ]
+  },
+  {
+   "import_key": "research:search-a61de640/final001/tic-160432093",
+   "observations": [
+    {
+     "target_id": "TIC:160432093",
+     "sha256": "549430aed733c059dbbb1bcf6ee86cb448cd8eecd400e2c0e8969e9340138103",
+     "file_name": "tess2022244194134-s0056-0000000160432093-0243-s_lc.fits"
+    },
+    {
+     "target_id": "TIC:160432093",
+     "sha256": "50de7b0db90f43accb7117b964e6a70c68fb5024b0f13e331f144b04ab7c8601",
+     "file_name": "tess2024223182411-s0082-0000000160432093-0278-s_lc.fits"
+    }
+   ],
+   "external_files": [
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-160432093.md",
+     "sha256": "480f7963795b0bc267f14519d3564ca654a2df51c7f5f6e9be191ef99a7b960d",
+     "bytes": 7563,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/TIC-160432093.md",
+     "description": "Research dossier for TIC 160432093: per-sector and joint measurements, pixel checks, alternatives, and missing evidence."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "sha256": "150c78f9f79ad287fc1929c2c146d7dfc13eb795981a4fad386dc0256ee0aa09",
+     "bytes": 10418,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/REPORT.md",
+     "description": "FINAL001 report: retained, ambiguous, and rejected signals and their limits."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "sha256": "6a9df74f120863ac1c31c9e0710e559320187cd2915a0453ec2fc72df9c5c505",
+     "bytes": 800920,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/targets.csv",
+     "description": "FINAL001 target table with the assessment and reason of each inspected signal."
+    },
+    {
+     "path": "delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "sha256": "4216a9eca58d4295a42b94f32dd77e0ee4880eaf2321159a1892544d85597744",
+     "bytes": 5310,
+     "uri": "research:delta-research/published/search-a61de640-3c7c-4d65-b80c-2a1d6855eecb/FINAL001/manifest.json",
+     "description": "FINAL001 publication manifest with the agent commit and resource audit."
+    }
+   ],
+   "candidate": {
+    "contract": "candidate/1",
+    "kind": "transit_signal",
+    "tier": "lab",
+    "label": "F001-7",
+    "summary": "Retained unconfirmed candidate of delta-research publication FINAL001. Existing candidate TOI 5971.01. Period 3.991418591 days from a selected joint timing check, without a calibrated uncertainty. Evidence: 14 positive windows across two sectors. Main unresolved issue: Large companion and possible eccentric secondary. Next observation in the report: Orbital radial-velocity spectroscopy."
+   },
+   "notes": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-160432093/note-limits",
+     "body": "Quoted from the FINAL001 report of delta-research agent search-a61de640-3c7c-4d65-b80c-2a1d6855eecb: \"All seven retained candidates match previously reported TOIs. No unmatched credible candidate survives.\" \"The periods come from selected joint timing checks. They do not include calibrated period uncertainties.\" \"An event window counts sampled predicted timing. A positive local depth alone does not establish a planetary transit.\" \"Visual assessments are model judgments. Formal errors omit correlated noise, and preprocessing can change transit shapes and depths.\""
+    }
+   ],
+   "decisions": [
+    {
+     "import_key": "research:search-a61de640/final001/tic-160432093/decision-final-assessment",
+     "document": {
+      "contract": "decision/1",
+      "question": {
+       "id": "research-final-assessment",
+       "version": 1
+      },
+      "mode": "advisory",
+      "judge": "model",
+      "model": {
+       "kind": "unavailable",
+       "reason": "The publication does not name the model."
+      },
+      "packet": {
+       "kind": "unavailable",
+       "reason": "The publication does not identify the evidence that the model judged."
+      },
+      "policy": {
+       "kind": "unavailable",
+       "reason": "The research agent applied its own triage criteria. No platform decision policy exists."
+      },
+      "judged_evidence_status": "supported",
+      "action": "request_more_data",
+      "reason": "FINAL001 assessment \"retained\": Fourteen positive windows share timing across two sectors near the target. Local baselines remove the parity warning. Existing candidate TOI 5971.01 remains unconfirmed.",
+      "response": {
+       "source_assessment": "retained",
+       "source_catalog_identity": "not checked",
+       "source_table": "targets.csv",
+       "next_observation": "Orbital radial-velocity spectroscopy",
+       "mapping": "The FINAL001 categories retained, ambiguous, and rejected map to the judged evidence statuses supported, ambiguous, and rejected."
+      }
+     }
+    }
+   ]
+  }
+ ]
+}
