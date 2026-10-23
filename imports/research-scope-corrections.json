@@ -1,0 +1,67 @@
+{
+  "format": "research-import/1",
+  "description": "Separate-review clarification of physical classification in three lab corrections.",
+  "root": "../../..",
+  "notes": [
+    {
+      "import_key": "research:advance-01a166e5/tic-179317684/scope-correction",
+      "body": "TIC 179317684: All five investigation events and six main-record windows have positive depths. The no-recurrence reason is unsupported. Large parity differences remain. This correction does not resolve source location or companion classification. Lab assessment: ambiguous. The predecessor uses supported for recurrence or corrected arithmetic. This successor makes the unresolved physical classification explicit.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/scope-corrections/tic-179317684.json",
+          "sha256": "8b9e1894f6c8b1b8ea95913a9a933f7d5d0cf2a794ad8ae11dd1c0d66eaf8cc0",
+          "bytes": 2633,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/scope-corrections/tic-179317684.json",
+          "description": "Lab scope correction or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-179317684.json",
+          "sha256": "60e13e1a10d9a9c1a224d7cebb135299929f25de8d273fa661021588db1d34d1",
+          "bytes": 2467,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-179317684.json",
+          "description": "Lab scope correction or preserved predecessor."
+        }
+      ]
+    },
+    {
+      "import_key": "research:advance-01a166e5/tic-335590096/scope-correction",
+      "body": "TIC 335590096: The radius rejection is arithmetically wrong. The saved signal supports recovery of TOI-4860 b. Unequal depths still require processing checks. This correction does not resolve source location or companion classification. Lab assessment: ambiguous. The predecessor uses supported for recurrence or corrected arithmetic. This successor makes the unresolved physical classification explicit.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/scope-corrections/tic-335590096.json",
+          "sha256": "f919fc8b157ac9711d3899e56be92f56441dab1b6e6bbba947e0fa8cf5489a19",
+          "bytes": 2618,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/scope-corrections/tic-335590096.json",
+          "description": "Lab scope correction or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-335590096.json",
+          "sha256": "c20cd7edb48dbccc591b426e66c8a99581d99c28cc456ce11cc12881f41f3cf1",
+          "bytes": 2452,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-335590096.json",
+          "description": "Lab scope correction or preserved predecessor."
+        }
+      ]
+    },
+    {
+      "import_key": "research:advance-01a166e5/tic-142378043/scope-correction",
+      "body": "TIC 142378043: The approximate radius is 0.449 Jupiter radii under the review convention, or 0.439 using the equatorial convention. The reported 0.22 is wrong. This correction does not resolve source location or companion classification. Lab assessment: ambiguous. The predecessor uses supported for recurrence or corrected arithmetic. This successor makes the unresolved physical classification explicit.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/scope-corrections/tic-142378043.json",
+          "sha256": "e2b013115d1157f5db27a67a40b8e80d322e95c1b7fafd54a2c9c7997a7ee2b2",
+          "bytes": 2570,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/scope-corrections/tic-142378043.json",
+          "description": "Lab scope correction or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-142378043.json",
+          "sha256": "85eda42b17464e6bfe131750afd1c8ecc02cea97b215fb980331e64de411a048",
+          "bytes": 2404,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-142378043.json",
+          "description": "Lab scope correction or preserved predecessor."
+        }
+      ]
+    }
+  ]
+}

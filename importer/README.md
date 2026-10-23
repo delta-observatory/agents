@@ -34,6 +34,17 @@ The importer writes no measurement, no assessment, and no run.
 An external file stays where it is. It is a proposal, not platform evidence.
 The author of a manifest states only values that the source record states. A judgment that the source does not state does not go into a manifest.
 
+## External summaries without indexed observations
+
+The manifest can contain top-level `notes` without candidate `items`.
+Each note supplies `import_key`, `body`, and `external_files` in the format above.
+The importer uses the checked external references as the note's `subjects`.
+It checks every file before any API request.
+These notes need no observation registration and create no candidate assessment state.
+They preserve lab summaries without broadening the observation index.
+The API's existing `note/1` contract defines the record.
+Import keys share one namespace across all items and notes in the manifest.
+
 ## Manifest format `research-import/1`
 
 ```json

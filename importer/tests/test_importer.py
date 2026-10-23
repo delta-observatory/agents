@@ -119,6 +119,48 @@ class ImporterTest(unittest.TestCase):
                 import_records.run(self.api, self.write_manifest(manifest), dry_run=True)
         self.assertEqual(self.stub.requests, [])
 
+    def standalone_note(self):
+        return {'import_key': 'test:external-summary', 'body': 'External lab evidence. No planet validation.',
+                'external_files': self.manifest['items'][0]['external_files']}
+
+    def test_external_summary_needs_no_indexed_observation(self):
+        manifest = {'format': 'research-import/1', 'root': 'files', 'notes': [self.standalone_note()]}
+        path = self.write_manifest(manifest)
+        dry = import_records.run(self.api, path, dry_run=True)
+        self.assertEqual(dry['counts']['planned'], 1)
+        self.assertEqual(self.stub.requests, [])
+        first = import_records.run(self.api, path, dry_run=False)
+        second = import_records.run(self.api, path, dry_run=False)
+        self.assertEqual(first['counts']['created'], 1)
+        self.assertEqual(second['counts']['existing'], 1)
+        self.assertEqual(first['notes'][0]['id'], second['notes'][0]['id'])
+        self.assertTrue(all(r['path'] == '/api/notes' for r in self.stub.requests))
+        note = self.fake.records['test:external-summary']['body']
+        self.assertEqual(note['subjects'][0]['kind'], 'external')
+        self.assertEqual(note['subjects'][0]['sha256'], self.evidence_sha)
+
+    def test_external_summary_mismatch_blocks_all_writes(self):
+        self.manifest['notes'] = [self.standalone_note()]
+        self.manifest['notes'][0]['external_files'] = [
+            {**self.manifest['items'][0]['external_files'][0], 'sha256': '0' * 64}]
+        with self.assertRaises(import_records.ImportStop):
+            import_records.run(self.api, self.write_manifest(), dry_run=False)
+        self.assertEqual(self.stub.requests, [])
+
+    def test_external_summary_keys_share_the_candidate_namespace(self):
+        self.manifest['notes'] = [{**self.standalone_note(), 'import_key': 'test:item-1'}]
+        with self.assertRaisesRegex(import_records.ImportStop, 'unique'):
+            import_records.run(self.api, self.write_manifest(), dry_run=False)
+        self.assertEqual(self.stub.requests, [])
+
+    def test_external_summary_requires_checked_subjects(self):
+        for extra in [{'external_files': []}, {'subjects': []}, {'body': ''}]:
+            manifest = {'format': 'research-import/1', 'root': 'files',
+                        'notes': [{**self.standalone_note(), **extra}]}
+            with self.assertRaises(import_records.ImportStop):
+                import_records.run(self.api, self.write_manifest(manifest), dry_run=False)
+        self.assertEqual(self.stub.requests, [])
+
 
 if __name__ == '__main__':
     unittest.main()

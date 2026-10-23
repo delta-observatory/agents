@@ -76,6 +76,12 @@ def check_manifest(manifest: dict):
     if manifest.get('format') != FORMAT:
         raise ImportStop(f'the manifest format is {manifest.get("format")!r}, not {FORMAT}')
     keys = []
+    for note in manifest.get('notes', []):
+        keys.append(note.get('import_key'))
+        if not isinstance(note.get('body'), str) or not note['body'].strip():
+            raise ImportStop('a standalone note needs a nonempty body')
+        if 'subjects' in note:
+            raise ImportStop('the importer sets standalone note subjects from checked external files')
     for i, item in enumerate(manifest.get('items') or []):
         candidate = item.get('candidate') or {}
         if candidate.get('tier') != 'lab':
@@ -93,13 +99,13 @@ def check_manifest(manifest: dict):
     if bad or len(keys) != len(set(keys)):
         raise ImportStop(f'import keys must be unique and match {KEY.pattern}: {bad or "duplicates"}')
     if not keys:
-        raise ImportStop('the manifest has no items')
+        raise ImportStop('the manifest has no items or notes')
 
 
 def check_files(manifest: dict, base: Path) -> dict:
     """{item key: [external references]} after the size and SHA-256 check of every file."""
     refs = {}
-    for item in manifest['items']:
+    for item in [*manifest.get('items', []), *manifest.get('notes', [])]:
         out = []
         for entry in item.get('external_files', []):
             path = (base / entry['path']).resolve()
@@ -115,7 +121,7 @@ def check_files(manifest: dict, base: Path) -> dict:
                 ref['description'] = entry['description']
             out.append(ref)
         if not out:
-            raise ImportStop(f'{item["import_key"]}: an imported candidate needs at least one external file')
+            raise ImportStop(f'{item["import_key"]}: an imported record needs at least one external file')
         refs[item['import_key']] = out
     return refs
 
@@ -123,7 +129,7 @@ def check_files(manifest: dict, base: Path) -> dict:
 def find_observations(api: Api, manifest: dict) -> dict:
     """{item key: [observation IDs]}. Each observation must match its target ID and SHA-256."""
     found = {}
-    for item in manifest['items']:
+    for item in manifest.get('items', []):
         ids = []
         for entry in item.get('observations', []):
             status, body = api.send('GET', '/observations', {'target_id': entry['target_id'], 'limit': 1000})
@@ -160,7 +166,7 @@ def run(api: Api, manifest_path: Path, dry_run: bool) -> dict:
     observations = find_observations(api, manifest)
     query = {'campaign_id': manifest['campaign_id']} if manifest.get('campaign_id') else None
     items = []
-    for item in manifest['items']:
+    for item in manifest.get('items', []):
         key = item['import_key']
         candidate = {**item['candidate'], 'import_key': key, 'observation_ids': observations[key], 'evidence': refs[key]}
         written = write(api, '/candidates', query, candidate, dry_run)
@@ -172,9 +178,14 @@ def run(api: Api, manifest_path: Path, dry_run: bool) -> dict:
                      for d in item.get('decisions', [])]
         items.append({'import_key': key, 'observation_ids': observations[key], 'candidate': written,
                       'notes': notes, 'decisions': decisions})
+    notes = [write(api, '/notes', None, {'contract': 'note/1', 'import_key': n['import_key'],
+                                       'body': n['body'], 'subjects': refs[n['import_key']]}, dry_run)
+             for n in manifest.get('notes', [])]
     outcomes = [r['outcome'] for i in items for r in [i['candidate'], *i['notes'], *i['decisions']]]
+    outcomes += [r['outcome'] for r in notes]
     return {'manifest': str(manifest_path), 'manifest_sha256': hashlib.sha256(raw).hexdigest(), 'dry_run': dry_run,
-            'counts': {o: outcomes.count(o) for o in ('created', 'existing', 'planned')}, 'items': items}
+            'counts': {o: outcomes.count(o) for o in ('created', 'existing', 'planned')}, 'items': items,
+            'notes': notes}
 
 
 def main(argv=None) -> int:

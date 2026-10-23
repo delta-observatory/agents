@@ -1,0 +1,147 @@
+{
+  "format": "research-import/1",
+  "description": "Successor lab assessments from the saved targeted investigation and corrected rejection arithmetic. No indexed observations are added.",
+  "root": "../../..",
+  "notes": [
+    {
+      "import_key": "research:advance-01a166e5/tic-142378043/successor",
+      "body": "TIC 142378043: The approximate radius is 0.449 Jupiter radii under the review convention, or 0.439 using the equatorial convention. The reported 0.22 is wrong. This is a successor lab assessment. It supersedes /home/richardtidwell/repos/delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B011/final-assessment.json/records/28 for the stated reason. Corrects the documented rationale while preserving the original assessment. No planet validation follows. The linked JSON separates recurrence, source location, and companion classification.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-142378043.json",
+          "sha256": "85eda42b17464e6bfe131750afd1c8ecc02cea97b215fb980331e64de411a048",
+          "bytes": 2404,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-142378043.json",
+          "description": "External lab assessment or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B011/final-assessment.json",
+          "sha256": "59e90c24575e752e35a79529b1967a74f76ee05a33c03640464c89b2242735a4",
+          "bytes": 36758,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B011/final-assessment.json",
+          "description": "External lab assessment or preserved predecessor."
+        }
+      ]
+    },
+    {
+      "import_key": "research:advance-01a166e5/tic-179317684/successor",
+      "body": "TIC 179317684: All five investigation events and six main-record windows have positive depths. The no-recurrence reason is unsupported. Large parity differences remain. This is a successor lab assessment. It supersedes /home/richardtidwell/repos/delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B004/final-assessment.json/records/44 for the stated reason. Corrects the documented rationale while preserving the original assessment. No planet validation follows. The linked JSON separates recurrence, source location, and companion classification.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-179317684.json",
+          "sha256": "60e13e1a10d9a9c1a224d7cebb135299929f25de8d273fa661021588db1d34d1",
+          "bytes": 2467,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-179317684.json",
+          "description": "External lab assessment or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B004/final-assessment.json",
+          "sha256": "7ee4a1e9c57b195252d7efe38e84303ef2493dcdb17b1befeafcf001ef791127",
+          "bytes": 31767,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B004/final-assessment.json",
+          "description": "External lab assessment or preserved predecessor."
+        }
+      ]
+    },
+    {
+      "import_key": "research:advance-01a166e5/tic-335590096/successor",
+      "body": "TIC 335590096: The radius rejection is arithmetically wrong. The saved signal supports recovery of TOI-4860 b. Unequal depths still require processing checks. This is a successor lab assessment. It supersedes /home/richardtidwell/repos/delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B003/final-assessment.json/records/69 for the stated reason. Corrects the documented rationale while preserving the original assessment. No planet validation follows. The linked JSON separates recurrence, source location, and companion classification.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-335590096.json",
+          "sha256": "c20cd7edb48dbccc591b426e66c8a99581d99c28cc456ce11cc12881f41f3cf1",
+          "bytes": 2452,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-335590096.json",
+          "description": "External lab assessment or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B003/final-assessment.json",
+          "sha256": "e69ddd24f4816bc52269ca6ee2576fa41eb1fdeaab971bf32fa8239603c46354",
+          "bytes": 36138,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B003/final-assessment.json",
+          "description": "External lab assessment or preserved predecessor."
+        }
+      ]
+    },
+    {
+      "import_key": "research:advance-01a166e5/tic-358463507/successor",
+      "body": "TIC 358463507: The nearby star is the supported source of recurring dips near 2.71342 days. Its companion remains unclassified. This is a successor lab assessment. It supersedes /home/richardtidwell/repos/delta-research/outputs/search-68b57860-def6-4eb1-bd1b-3a91f9434db5/B002/initial-inspection.json/records/20 for the stated reason. Corrects the host association of the existing signal. This is not a second independent signal. No planet validation follows. The linked JSON separates recurrence, source location, and companion classification. The test definitions were frozen. Three current code files differ from the original freeze. Exact frozen-code execution is not independently established.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-358463507.json",
+          "sha256": "4320cb7c6e63d6a01da88cfba4ecc4d0dd33995dd4e9a22472816b048acffbd5",
+          "bytes": 2741,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-358463507.json",
+          "description": "External lab assessment or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/search-68b57860-def6-4eb1-bd1b-3a91f9434db5/B002/initial-inspection.json",
+          "sha256": "f4751dbd7cda50c10592130777aad1a2bf600d8c3a6e87d699984a0f611e9739",
+          "bytes": 35079,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/search-68b57860-def6-4eb1-bd1b-3a91f9434db5/B002/initial-inspection.json",
+          "description": "External lab assessment or preserved predecessor."
+        }
+      ]
+    },
+    {
+      "import_key": "research:advance-01a166e5/tic-358463513/successor",
+      "body": "TIC 358463513: The dips recur, but source-location evidence rejects TIC 358463513 as their host. TIC 358463507 is the supported nearby source. This is a successor lab assessment. It supersedes /home/richardtidwell/repos/delta-research/outputs/search-68b57860-def6-4eb1-bd1b-3a91f9434db5/B002/initial-inspection.json/records/20 for the stated reason. New recurrence, source-location, and physical interpretation evidence replaces the earlier unresolved interpretation. No planet validation follows. The linked JSON separates recurrence, source location, and companion classification. The test definitions were frozen. Three current code files differ from the original freeze. Exact frozen-code execution is not independently established.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-358463513.json",
+          "sha256": "9d953142e81a208680ec337c645e21b66c78f62ef81058cc07f5df43bacfe7d9",
+          "bytes": 2699,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-358463513.json",
+          "description": "External lab assessment or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/search-68b57860-def6-4eb1-bd1b-3a91f9434db5/B002/initial-inspection.json",
+          "sha256": "f4751dbd7cda50c10592130777aad1a2bf600d8c3a6e87d699984a0f611e9739",
+          "bytes": 35079,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/search-68b57860-def6-4eb1-bd1b-3a91f9434db5/B002/initial-inspection.json",
+          "description": "External lab assessment or preserved predecessor."
+        }
+      ]
+    },
+    {
+      "import_key": "research:advance-01a166e5/tic-397353657/successor",
+      "body": "TIC 397353657: The recurring signal supports a blended eclipsing binary near 2.7640788 days. A bound pair is favored but not directly detected. This is a successor lab assessment. It supersedes /home/richardtidwell/repos/delta-research/outputs/search-9bb0f103-0f1e-4174-9329-f61d73b4e121/B014/final-assessment.json/records/0 for the stated reason. New recurrence, source-location, and physical interpretation evidence replaces the earlier unresolved interpretation. No planet validation follows. The linked JSON separates recurrence, source location, and companion classification. The test definitions were frozen. Three current code files differ from the original freeze. Exact frozen-code execution is not independently established.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-397353657.json",
+          "sha256": "45577769d9cf547ef4d7d6c40551f54ced82684d769e8723a9a5b23f5eae59c7",
+          "bytes": 3014,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-397353657.json",
+          "description": "External lab assessment or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/search-9bb0f103-0f1e-4174-9329-f61d73b4e121/B014/final-assessment.json",
+          "sha256": "226778851cc7bd0dfcdd7609410ee53486756e9655ed1498f04532f50284ad96",
+          "bytes": 36162,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/search-9bb0f103-0f1e-4174-9329-f61d73b4e121/B014/final-assessment.json",
+          "description": "External lab assessment or preserved predecessor."
+        }
+      ]
+    },
+    {
+      "import_key": "research:advance-01a166e5/tic-915110182/successor",
+      "body": "TIC 915110182: Eighteen measured windows have positive depths. Severe crowding limits source attribution. It does not establish that a planet cannot cause the signal. This is a successor lab assessment. It supersedes /home/richardtidwell/repos/delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B002/final-assessment.json/records/106 for the stated reason. Corrects the documented rationale while preserving the original assessment. No planet validation follows. The linked JSON separates recurrence, source location, and companion classification.",
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-915110182.json",
+          "sha256": "610629e1edee23b2eea3eef5c814bd69ce7bb3f6039caa5fbba44fd2dc48a57b",
+          "bytes": 2260,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-915110182.json",
+          "description": "External lab assessment or preserved predecessor."
+        },
+        {
+          "path": "delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B002/final-assessment.json",
+          "sha256": "5de4c0e1a07037566293b4dee0c369888ffab7bc89897df6fbb721a4fa86ad4b",
+          "bytes": 33780,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/search-eb4cdd29-ad55-4671-842e-6135fa85d204/B002/final-assessment.json",
+          "description": "External lab assessment or preserved predecessor."
+        }
+      ]
+    }
+  ]
+}
