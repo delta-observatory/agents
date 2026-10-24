@@ -1,6 +1,6 @@
 """A Linux namespace boundary for Codex app-server.
 
-The model process receives its campaign profile and operating-system libraries.
+The model process receives its separate provider profile and operating-system libraries.
 It receives no Delta token, database socket, observations, or artifact directory.
 """
 from pathlib import Path

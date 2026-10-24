@@ -14,11 +14,18 @@ It does not expose the user's home directory or Delta workspace.
 
 The desktop controller provides these operations:
 
-- Prepare a connection for an approved investigation.
-- Sign in through the provider's device page or an API key.
+- Prepare a provider connection before creating an investigation.
+- Sign in through the provider browser page, a device code, or an API key.
+- Cancel a pending login or inspect the current account.
 - Use memory-only credentials or the operating-system credential store.
 - Create or reconnect a consented session.
 - Send instructions, pause a turn, disconnect, or sign out.
+
+Provider login does not create a scientific session or send investigation evidence.
+The provider connection remains available during navigation between application views.
+Disconnecting an investigation preserves the provider account.
+Provider sign-out pauses the agent, disconnects its session, and removes the provider login.
+Closing the desktop removes memory-only credentials.
 
 The owner must consent before the host sends permitted investigation evidence to the model provider.
 This connection does not authorize archive uploads or external candidate submissions.
@@ -42,4 +49,6 @@ python3 scripts/check_managed_isolation.py --runtime <directory-containing-codex
 The isolation check uses a local fake provider without account credentials or model requests.
 It checks a complete direct tool call and inaccessible host paths.
 It also checks that the model sees only the supplied API tool.
+A local protocol fixture checks login, cancellation, account updates, sign-out, and isolation between investigation messages.
 Provider account eligibility and interactive login require an account-specific check.
+The [Codex authentication protocol](https://learn.chatgpt.com/docs/app-server#auth-endpoints) defines the provider operations.

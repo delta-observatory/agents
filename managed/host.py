@@ -39,6 +39,7 @@ class Host:
         self.args=args;self.emit=emit;self.owner_token=None;self.agent_token=None;self.proc=None
         self.waiting={};self.sequence=0;self.campaign=None;self.session=None;self.adapter=None
         self.thread=None;self.turn=None;self.paused=True;self.secrets=[];self.stderr=[];self.tasks=set();self.token_offset=0
+        self.credential_store=None;self.pending_login=None
 
     def scrub(self,value):
         text=str(value)
@@ -109,10 +110,13 @@ class Host:
         try:
             method=message.get('method');p=message.get('params',{})
             if method=='account/login/completed':
-                self.emit({'event':'login','success':p.get('success',False),'error':self.scrub(p.get('error',''))})
-            elif method=='item/agentMessage/delta':
+                if self.pending_login and p.get('loginId')==self.pending_login.get('loginId'):self.pending_login=None
+                self.emit({'event':'login','success':p.get('success',False),'error':self.scrub(p.get('error') or '')})
+            elif method=='account/updated':
+                self.emit({'event':'account'})
+            elif method=='item/agentMessage/delta' and self.session and p.get('threadId')==self.thread:
                 self.emit({'event':'message_delta','text':self.scrub(p.get('delta',''))})
-            elif method=='item/completed' and p.get('item',{}).get('type')=='agentMessage':
+            elif method=='item/completed' and self.session and p.get('threadId')==self.thread and p.get('item',{}).get('type')=='agentMessage':
                 text=p['item'].get('text','')
                 await self.record('agent_message',text)
                 self.emit({'event':'message','text':self.scrub(text)})
@@ -160,28 +164,49 @@ class Host:
         except Exception as error:
             await self.reply(message['id'],{'success':False,'contentItems':[{'type':'inputText','text':self.scrub(error)}]})
 
-    async def initialize(self,campaign,credential_store):
-        uuid.UUID(campaign)
+    async def status(self):
+        running=self.proc is not None and self.proc.returncode is None
+        account=await self.rpc('account/read',{'refreshToken':False}) if running else {'account':None}
+        return {'account':account.get('account'),'session':self.session,'campaign_id':self.campaign,
+                'initialized':running,'credential_store':self.credential_store,'login':self.pending_login}
+
+    async def initialize(self,campaign=None,credential_store='ephemeral'):
+        if credential_store not in ('ephemeral','keyring'):raise ValueError('Select a supported credential store.')
+        if self.proc and self.proc.returncode is not None:await self.close()
         if self.proc:
-            if self.campaign==campaign:return await self.rpc('account/read',{'refreshToken':False})
-            raise ValueError('Disconnect the current investigation before connecting another one.')
-        investigation=await self.api('/investigations/'+campaign)
-        if investigation['state']!='ready':raise ValueError('Approve the current investigation before connecting a model.')
-        self.campaign=campaign
-        args=command(self.args.runtime_dir,Path(self.args.state_dir)/campaign,self.args.bwrap,credential_store)
+            if self.credential_store!=credential_store:raise ValueError('Sign out before changing credential storage.')
+            return await self.status()
+        args=command(self.args.runtime_dir,Path(self.args.state_dir)/'provider',self.args.bwrap,credential_store)
+        self.credential_store=credential_store
         child_env={'PATH':'/usr/bin:/bin','LANG':'C.UTF-8'}
         if self.args.library_dir:child_env['LD_LIBRARY_PATH']=self.args.library_dir
         self.proc=await asyncio.create_subprocess_exec(*args,stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE,env=child_env,limit=4*1024*1024)
         self.read_task=asyncio.create_task(self.reader());self.error_task=asyncio.create_task(self.errors())
-        result=await self.rpc('initialize',{'clientInfo':{'name':'delta_observatory','title':'Delta Observatory','version':'0.1.0'},'capabilities':{'experimentalApi':True}})
-        self.proc.stdin.write(b'{"method":"initialized"}\n');await self.proc.stdin.drain()
-        return {'protocol':result,'account':await self.rpc('account/read',{'refreshToken':False})}
+        try:
+            await self.rpc('initialize',{'clientInfo':{'name':'delta_observatory','title':'Delta Observatory','version':'0.1.0'},'capabilities':{'experimentalApi':True}})
+            self.proc.stdin.write(b'{"method":"initialized"}\n');await self.proc.stdin.drain()
+            return await self.status()
+        except Exception:
+            await self.close()
+            raise
 
-    async def connect(self,model,consent,session_id=None):
+    async def connect(self,model,consent,session_id=None,campaign=None):
         if consent is not True:raise ValueError('Model-use consent is required.')
         if model not in SUPPORTED_MODELS:raise ValueError('This desktop supports the checked gpt-5.4 direct-tool model.')
         if self.session:raise ValueError('Disconnect the current session before connecting another session.')
-        investigation=await self.api('/investigations/'+self.campaign)
+        if not self.proc:raise ValueError('Sign in to the provider in Settings first.')
+        if not campaign:raise ValueError('Select an approved investigation first.')
+        uuid.UUID(campaign)
+        if not (await self.status())['account']:raise ValueError('Sign in to the provider in Settings first.')
+        investigation=await self.api('/investigations/'+campaign)
+        if investigation['state']!='ready' or investigation['head_revision_id']!=investigation['approved_revision_id']:
+            raise ValueError('Approve the current investigation before connecting a model.')
+        if session_id:
+            sessions=await self.api('/investigations/'+campaign+'/sessions')
+            saved=next((s for s in sessions['items'] if s['id']==session_id),None)
+            if not saved or saved['document']['model'] not in SUPPORTED_MODELS:
+                raise ValueError('Select a compatible session from this investigation.')
+        self.campaign=campaign
         if session_id:
             uuid.UUID(session_id)
             response=await self.api('/agent-sessions/'+session_id+'/reconnect',method='POST')
@@ -233,6 +258,14 @@ class Host:
         await self.state(state='paused');await self.record('agent_paused','The owner or an approved limit paused the agent.')
         return {'state':'paused'}
 
+    async def disconnect(self):
+        if self.session:await self.interrupt()
+        # Drain calls before changing their campaign or credentials.
+        if self.tasks:await asyncio.gather(*list(self.tasks),return_exceptions=True)
+        self.session=None;self.adapter=None;self.campaign=None;self.thread=None
+        self.agent_token=None;self.token_offset=0
+        return await self.status()
+
     async def close(self):
         if self.proc:
             if self.session:
@@ -241,7 +274,11 @@ class Host:
             if self.proc.returncode is None:self.proc.terminate()
             try:await asyncio.wait_for(self.proc.wait(),5)
             except asyncio.TimeoutError:self.proc.kill();await self.proc.wait()
+            for task in (getattr(self,'read_task',None),getattr(self,'error_task',None)):
+                if task:await task
+            if self.tasks:await asyncio.gather(*list(self.tasks),return_exceptions=True)
             self.proc=None;self.session=None;self.adapter=None;self.campaign=None;self.thread=None;self.agent_token=None;self.token_offset=0
+        self.credential_store=None;self.pending_login=None
         return {'state':'disconnected'}
 
     async def handle(self,action,params):
@@ -249,22 +286,40 @@ class Host:
             if self.owner_token:raise ValueError('The host is already configured.')
             self.owner_token=params['token'];self.secrets.append(self.owner_token);return {'ready':True}
         if not self.owner_token:raise ValueError('The desktop host is not configured.')
-        if action=='initialize':return await self.initialize(params['campaign_id'],params.get('credential_store','ephemeral'))
-        if action=='status':return {'account':await self.rpc('account/read',{'refreshToken':False}),'session':self.session,'connected':self.proc is not None}
+        if action=='initialize':return await self.initialize(credential_store=params.get('credential_store','ephemeral'))
+        if action=='status':return await self.status()
         if action=='login':
-            if params.get('type')=='apiKey':
-                key=params['apiKey'];self.secrets.append(key);return await self.rpc('account/login/start',{'type':'apiKey','apiKey':key})
-            return await self.rpc('account/login/start',{'type':'chatgptDeviceCode'})
+            if self.session:raise ValueError('Disconnect the investigation before changing the provider account.')
+            if self.pending_login:raise ValueError('Complete or cancel the pending login first.')
+            kind=params.get('type')
+            if kind=='apiKey':
+                key=params['apiKey']
+                if not isinstance(key,str) or not key.strip():raise ValueError('Enter an API key.')
+                self.secrets.append(key)
+                return await self.rpc('account/login/start',{'type':'apiKey','apiKey':key})
+            if kind not in ('chatgpt','chatgptDeviceCode'):raise ValueError('Select a supported login method.')
+            result=await self.rpc('account/login/start',{'type':kind})
+            self.pending_login=result
+            return result
+        if action=='cancelLogin':
+            if self.pending_login:
+                await self.rpc('account/login/cancel',{'loginId':self.pending_login['loginId']})
+                self.pending_login=None
+            return await self.status()
         if action=='models':
             result=await self.rpc('model/list',{'limit':100,'includeHidden':True})
             return {**result,'data':[m for m in result.get('data',[]) if m.get('model') in SUPPORTED_MODELS or m.get('id') in SUPPORTED_MODELS]}
-        if action=='connect':return await self.connect(params['model'],params.get('consent'),params.get('session_id'))
+        if action=='connect':return await self.connect(params['model'],params.get('consent'),params.get('session_id'),params.get('campaign_id'))
         if action=='send':return await self.send(params['text'])
         if action=='interrupt':return await self.interrupt()
-        if action=='disconnect':return await self.close()
+        if action=='disconnect':return await self.disconnect()
+        if action=='shutdown':return await self.close()
         if action=='logout':
-            if self.session:await self.interrupt()
-            return await self.rpc('account/logout',{})
+            await self.disconnect()
+            if self.pending_login:await self.handle('cancelLogin',{})
+            if self.proc:await self.rpc('account/logout',{})
+            await self.close()
+            return await self.status()
         raise ValueError('Unknown desktop agent operation.')
 
 
