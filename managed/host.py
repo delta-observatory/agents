@@ -35,6 +35,10 @@ def permitted(tool):
 
 
 class Host:
+    provider = "codex"
+    models = SUPPORTED_MODELS
+    session_contract = "agent-session/1"
+
     def __init__(self, args, emit):
         self.args=args;self.emit=emit;self.owner_token=None;self.agent_token=None;self.proc=None
         self.waiting={};self.sequence=0;self.campaign=None;self.session=None;self.adapter=None
@@ -141,23 +145,28 @@ class Host:
         except Exception as error:
             self.emit({'event':'error','message':self.scrub(error)})
 
+    async def call_tool(self,p):
+        name=p['tool']
+        if self.paused or self.adapter is None or p['threadId']!=self.thread or name not in self.adapter.tools:
+            raise ValueError('This tool is unavailable outside the active permitted turn.')
+        investigation=await self.api('/investigations/'+self.campaign)
+        if investigation['state']!='ready' or investigation['head_revision_id']!=investigation['approved_revision_id']:
+            raise ValueError('The investigation requires approval or is paused.')
+        arguments=p.get('arguments',{})
+        if isinstance(arguments,str):arguments=json.loads(arguments)
+        http=self.adapter.tools[name]['http']
+        if 'campaign_id' in http['path_params'] and arguments.get('campaign_id')!=self.campaign:
+            raise ValueError('This tool must use the connected investigation.')
+        if http['path'].endswith('/execute'):
+            # Provider call identity is stable across retransmission; model text cannot choose a second key.
+            arguments={**arguments,'body':{**arguments.get('body',{}),'request_key':'agent-'+p['callId']}}
+        result=await asyncio.to_thread(self.adapter.call,name,arguments)
+        return result
+
     async def tool(self,message):
         try:
             p=message['params'];name=p['tool']
-            if self.paused or self.adapter is None or p['threadId']!=self.thread or name not in self.adapter.tools:
-                raise ValueError('This tool is unavailable outside the active permitted turn.')
-            investigation=await self.api('/investigations/'+self.campaign)
-            if investigation['state']!='ready' or investigation['head_revision_id']!=investigation['approved_revision_id']:
-                raise ValueError('The investigation requires approval or is paused.')
-            arguments=p.get('arguments',{})
-            if isinstance(arguments,str):arguments=json.loads(arguments)
-            http=self.adapter.tools[name]['http']
-            if 'campaign_id' in http['path_params'] and arguments.get('campaign_id')!=self.campaign:
-                raise ValueError('This tool must use the connected investigation.')
-            if http['path'].endswith('/execute'):
-                # Provider call identity is stable across retransmission; model text cannot choose a second key.
-                arguments={**arguments,'body':{**arguments.get('body',{}),'request_key':'agent-'+p['callId']}}
-            result=await asyncio.to_thread(self.adapter.call,name,arguments)
+            result=await self.call_tool(p)
             text='\n'.join(c.get('text','') for c in result.get('content',[]))
             await self.reply(message['id'],{'success':not result.get('isError',False),'contentItems':[{'type':'inputText','text':self.scrub(text)}]})
             self.emit({'event':'tool','name':name,'success':not result.get('isError',False)})
@@ -167,7 +176,7 @@ class Host:
     async def status(self):
         running=self.proc is not None and self.proc.returncode is None
         account=await self.rpc('account/read',{'refreshToken':False}) if running else {'account':None}
-        return {'account':account.get('account'),'session':self.session,'campaign_id':self.campaign,
+        return {'provider':self.provider,'account':account.get('account'),'session':self.session,'campaign_id':self.campaign,
                 'initialized':running,'credential_store':self.credential_store,'login':self.pending_login}
 
     async def initialize(self,campaign=None,credential_store='ephemeral'):
@@ -192,9 +201,9 @@ class Host:
 
     async def connect(self,model,consent,session_id=None,campaign=None):
         if consent is not True:raise ValueError('Model-use consent is required.')
-        if model not in SUPPORTED_MODELS:raise ValueError('This desktop supports the checked gpt-5.4 direct-tool model.')
+        if model not in self.models:raise ValueError('Select a supported model for this provider.')
         if self.session:raise ValueError('Disconnect the current session before connecting another session.')
-        if not self.proc:raise ValueError('Sign in to the provider in Settings first.')
+        if not (await self.status())['initialized']:raise ValueError('Sign in to the provider in Settings first.')
         if not campaign:raise ValueError('Select an approved investigation first.')
         uuid.UUID(campaign)
         if not (await self.status())['account']:raise ValueError('Sign in to the provider in Settings first.')
@@ -204,17 +213,17 @@ class Host:
         if session_id:
             sessions=await self.api('/investigations/'+campaign+'/sessions')
             saved=next((s for s in sessions['items'] if s['id']==session_id),None)
-            if not saved or saved['document']['model'] not in SUPPORTED_MODELS:
+            if not saved or saved['document']['model'] not in self.models or saved['document']['provider'] != self.provider:
                 raise ValueError('Select a compatible session from this investigation.')
         self.campaign=campaign
         if session_id:
             uuid.UUID(session_id)
             response=await self.api('/agent-sessions/'+session_id+'/reconnect',method='POST')
         else:
-            response=await self.api('/investigations/'+self.campaign+'/sessions',{'contract':'agent-session/1','provider':'codex','model':model,
+            response=await self.api('/investigations/'+self.campaign+'/sessions',{'contract':self.session_contract,'provider':self.provider,'model':model,
                 'revision_id':investigation['approved_revision_id'],'provider_thread_id':None,'state':'idle','turns':0,'tokens':0,'consent':True})
         self.session=response['session'];self.agent_token=response['token'];self.secrets.append(self.agent_token)
-        if self.session['document']['model'] not in SUPPORTED_MODELS:raise ValueError('The saved session uses an unsupported model.')
+        if self.session['document']['model'] not in self.models:raise ValueError('The saved session uses an unsupported model.')
         if self.session['campaign_id']!=self.campaign:raise ValueError('The saved session belongs to another investigation.')
         document=await self.api('/openapi.json')
         settings=Settings(self.args.api_url,self.agent_token,'',Path(self.args.state_dir)/'tool-responses',200000,30)
@@ -325,7 +334,8 @@ class Host:
 
 async def main(args):
     def emit(message):print(json.dumps(message),flush=True)
-    host=Host(args,emit)
+    from .providers import Providers
+    host=Providers(args,emit)
     while line:=await asyncio.to_thread(sys.stdin.readline):
         message={}
         try:
@@ -340,5 +350,5 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--api-url',required=True);parser.add_argument('--runtime-dir',required=True)
     parser.add_argument('--state-dir',required=True);parser.add_argument('--bwrap',required=True)
-    parser.add_argument('--library-dir')
+    parser.add_argument('--library-dir');parser.add_argument('--claude-runtime-dir')
     asyncio.run(main(parser.parse_args()))
