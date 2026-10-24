@@ -121,7 +121,9 @@ class Host:
                 await self.state(tokens=max(measured,self.session['document']['tokens']))
                 investigation=await self.api('/investigations/'+self.campaign)
                 approved=next(r for r in investigation['revisions'] if r['id']==investigation['approved_revision_id'])
-                if measured>=approved['document']['limits']['model_tokens']:
+                sessions=await self.api('/investigations/'+self.campaign+'/sessions')
+                total=sum(s['document']['tokens'] for s in sessions['items'])
+                if total>=approved['document']['limits']['model_tokens']:
                     await self.interrupt();await self.record('limit','The measured model token limit was reached.')
                 self.emit({'event':'usage','tokens':measured,'turns':self.session['document']['turns']})
             elif method=='turn/completed' and p.get('threadId')==self.thread:

@@ -28,7 +28,7 @@ with tempfile.TemporaryDirectory(prefix='delta-codex-tool-check-') as d:
  profile=Path(d)/'profile'
  args=command(runtime,profile,bwrap)
  secret=Path(d)/'private-owner-token';secret.write_text('synthetic-private-marker')
- isolated=subprocess.run(args[:-4]+['/bin/sh','-c','test ! -e "$1" && test ! -e /run/postgresql && test ! -e /home/richardtidwell','check',str(secret)],capture_output=True)
+ isolated=subprocess.run(args[:-4]+['/bin/sh','-c','test ! -e "$1" && test ! -e /run/postgresql && test ! -e "$2"','check',str(secret),str(Path.home())],capture_output=True)
  assert isolated.returncode==0,'The namespace exposed a host path.'
  config=profile/'config.toml'
  config.write_text('model_provider="fixture"\nmodel="gpt-5.4"\n'+config.read_text()+'enable_request_compression=false\n[model_providers.fixture]\nname="Engineering fixture"\nbase_url="http://127.0.0.1:'+str(s.server_port)+'/v1"\nwire_api="responses"\nrequires_openai_auth=false\n')
