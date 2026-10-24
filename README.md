@@ -15,6 +15,9 @@ The API has client tokens, permissions, and campaigns with budgets, blinding, an
 It keeps agent records: candidates, assessments, decisions, notes, and agent tasks with leases.
 [DESIGN.md](https://github.com/delta-observatory/delta-observatory/blob/main/DESIGN.md) defines the target agent control surface. [ROADMAP.md](https://github.com/delta-observatory/delta-observatory/blob/main/ROADMAP.md) stage R8 tracks its delivery.
 
+The [managed desktop host](managed/README.md) connects an approved investigation to an isolated Codex app-server.
+It requires explicit consent before sending permitted evidence to the provider.
+
 ## Boundary
 
 | Belongs in this repository | Stays in its current owner |
