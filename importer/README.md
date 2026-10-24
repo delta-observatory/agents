@@ -85,6 +85,10 @@ Import keys share one namespace across all items and notes in the manifest.
 | [imports/t01-known-planet-recovery.json](../imports/t01-known-planet-recovery.json) | The closed T01 record for its two registered development hosts, TIC 100100827 and TIC 25155310: one lab candidate for each host with the T01 result files, and one note that quotes the T01 outcome and limits. No assessment and no decision. |
 | [imports/research-search-a61de640-final001.json](../imports/research-search-a61de640-final001.json) | The seven retained candidates of delta-research publication FINAL001 on the 18 registered light curves of the selection manifest `research-search-a61de640-final001`. One lab candidate for each star with the dossier, report, target table, and publication manifest as external references. One note that quotes the report limits. One advisory decision of judge `model` that keeps the source assessment `retained` in `response` and maps it to the judged evidence status `supported`. No assessment. |
 
+The [RS-001 manifest](../imports/research-tic358463507-candidate.json) registers the existing TIC 358463507 signal with deferred follow-up.
+It links one indexed TIC 358463513 aperture observation and checksummed external evidence.
+A separate API assessment records ambiguous evidence. Identity remains unchecked.
+
 ## Tests
 
 ```bash

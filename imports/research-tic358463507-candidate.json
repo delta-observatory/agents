@@ -1,0 +1,81 @@
+{
+  "format": "research-import/1",
+  "description": "Register the existing TIC 358463507 signal as one lab candidate with deferred follow-up and an advisory evidence judgment.",
+  "root": "../../..",
+  "items": [
+    {
+      "import_key": "research:tic-358463507/candidate",
+      "observations": [
+        {
+          "target_id": "TIC:358463513",
+          "sha256": "06a06bc93b60ed9d2e736694561e95554c55f929f0155e05f83406b7f5d71522"
+        }
+      ],
+      "external_files": [
+        {
+          "path": "delta-research/outputs/advance-01a166e5/assessments/tic-358463507.json",
+          "sha256": "4320cb7c6e63d6a01da88cfba4ecc4d0dd33995dd4e9a22472816b048acffbd5",
+          "bytes": 2741,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/advance-01a166e5/assessments/tic-358463507.json",
+          "description": "Source-location assessment of the existing recurring signal."
+        },
+        {
+          "path": "delta-research/outputs/planet-validation-01a166e5/README.md",
+          "sha256": "5807dc317014774d0752405b54d3e5cb9972d6e5e5e7bcf7536fb38a7e0fc211",
+          "bytes": 6670,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/planet-validation-01a166e5/README.md",
+          "description": "Companion evidence audit: unclassified outcome and remaining evidence requirements."
+        },
+        {
+          "path": "delta-research/outputs/planet-validation-01a166e5/integrity.json",
+          "sha256": "18153ca2a6d0e0c9b969b04513697003e0c9f617e5222ff633a8a61015761b1c",
+          "bytes": 5011,
+          "uri": "file:///home/richardtidwell/repos/delta-research/outputs/planet-validation-01a166e5/integrity.json",
+          "description": "Preserved checksums for the companion evidence audit."
+        }
+      ],
+      "candidate": {
+        "contract": "candidate/1",
+        "kind": "transit_signal",
+        "tier": "lab",
+        "label": "RS-001",
+        "summary": "Unconfirmed candidate with recurring dips near 2.71342 days. Supported source: TIC 358463507. The indexed TIC 358463513 observation contains this same blended signal. This is one candidate, not two independent signals. Planet, brown-dwarf, and stellar interpretations remain unresolved. Dedicated follow-up is deferred until more candidates are available."
+      },
+      "notes": [
+        {
+          "import_key": "research:tic-358463507/deferred-followup",
+          "body": "Richard defers dedicated follow-up until more candidates are available. Keep this signal in the candidate register. Later work must test omitted companion alternatives and resolve companion mass. Possible routes include calibrated orbital phase curves or source-resolved epoch velocities. Resolved transit photometry can strengthen source and shape checks. Known-object comparison must establish identity separately. Neither a paper nor an external submission establishes planet validation. This note schedules no work. The linked files remain external lab proposals, not platform measurements."
+        }
+      ],
+      "decisions": [
+        {
+          "import_key": "research:tic-358463507/followup-decision",
+          "document": {
+            "contract": "decision/1",
+            "question": {
+              "id": "candidate-followup",
+              "version": 1
+            },
+            "mode": "advisory",
+            "judge": "model",
+            "model": {
+              "kind": "unavailable",
+              "reason": "The exact runtime model identifier is unavailable."
+            },
+            "packet": {
+              "kind": "unavailable",
+              "reason": "The judgment uses the referenced audit and assessment, plus the user instruction. No complete packet hash exists."
+            },
+            "policy": {
+              "kind": "unavailable",
+              "reason": "No validated platform decision policy applies to this external research assessment."
+            },
+            "judged_evidence_status": "ambiguous",
+            "action": "no_action",
+            "reason": "The recurring signal supports TIC 358463507 as its source. Companion mass and physical classification remain unresolved. The probability model omits relevant alternatives. Saved phase-curve estimates do not provide calibrated mass limits. Richard defers dedicated follow-up until more candidates are available."
+          }
+        }
+      ]
+    }
+  ]
+}

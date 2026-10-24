@@ -47,6 +47,7 @@ The tests use a stub HTTP server. They do not use the running API.
 
 | Path | Content |
 |---|---|
+| [prompts/exoplanet-search-continuation.md](prompts/exoplanet-search-continuation.md) | Continuation prompt for bounded TESS research with deferred candidate follow-up. |
 | [MANUAL.md](MANUAL.md) | Current control surface, data, methods, rules, and report format for agents. |
 | [templates/campaign.md](templates/campaign.md) | Campaign fields to complete and approve before data access. |
 | [adapter/](adapter/README.md) | MCP adapter: `generate.py` makes tools from the API description, and `server.py` serves them over stdio. |
